@@ -1,0 +1,1944 @@
+{
+    "35": {
+        "duration": 0.0,
+        "tactics": {
+            "formation": 433,
+            "lineup": [
+                {
+                    "player": {
+                        "id": 387477,
+                        "name": "Francesco Benussi"
+                    },
+                    "position": {
+                        "id": 1,
+                        "name": "Goalkeeper"
+                    },
+                    "jersey_number": 22
+                },
+                {
+                    "player": {
+                        "id": 387300,
+                        "name": "Cristian Zaccardo"
+                    },
+                    "position": {
+                        "id": 2,
+                        "name": "Right Back"
+                    },
+                    "jersey_number": 5
+                },
+                {
+                    "player": {
+                        "id": 8278,
+                        "name": "Nicol\u00e1s Federico Spolli"
+                    },
+                    "position": {
+                        "id": 3,
+                        "name": "Right Center Back"
+                    },
+                    "jersey_number": 33
+                },
+                {
+                    "player": {
+                        "id": 7172,
+                        "name": "Simone Romagnoli"
+                    },
+                    "position": {
+                        "id": 5,
+                        "name": "Left Center Back"
+                    },
+                    "jersey_number": 21
+                },
+                {
+                    "player": {
+                        "id": 3416,
+                        "name": "Gabriel Mois\u00e9s Antunes da Silva"
+                    },
+                    "position": {
+                        "id": 6,
+                        "name": "Left Back"
+                    },
+                    "jersey_number": 34
+                },
+                {
+                    "player": {
+                        "id": 31572,
+                        "name": "Luca Marrone"
+                    },
+                    "position": {
+                        "id": 10,
+                        "name": "Center Defensive Midfield"
+                    },
+                    "jersey_number": 39
+                },
+                {
+                    "player": {
+                        "id": 352172,
+                        "name": "Raffaele Bianco"
+                    },
+                    "position": {
+                        "id": 13,
+                        "name": "Right Center Midfield"
+                    },
+                    "jersey_number": 8
+                },
+                {
+                    "player": {
+                        "id": 387475,
+                        "name": "Andrea Lazzari"
+                    },
+                    "position": {
+                        "id": 15,
+                        "name": "Left Center Midfield"
+                    },
+                    "jersey_number": 10
+                },
+                {
+                    "player": {
+                        "id": 7696,
+                        "name": "Ryder Matos Santos"
+                    },
+                    "position": {
+                        "id": 17,
+                        "name": "Right Wing"
+                    },
+                    "jersey_number": 7
+                },
+                {
+                    "player": {
+                        "id": 11502,
+                        "name": "Antonio Di Gaudio"
+                    },
+                    "position": {
+                        "id": 21,
+                        "name": "Left Wing"
+                    },
+                    "jersey_number": 11
+                },
+                {
+                    "player": {
+                        "id": 7793,
+                        "name": "Kevin Lasagna"
+                    },
+                    "position": {
+                        "id": 23,
+                        "name": "Center Forward"
+                    },
+                    "jersey_number": 15
+                }
+            ]
+        },
+        "@id": "7735799b-6354-44fe-a229-64b8a67a969f",
+        "@index": 1,
+        "@period": 1,
+        "@timestamp": "00:00:00.000",
+        "@minute": 0,
+        "@second": 0,
+        "@type": {
+            "id": 35,
+            "name": "Starting XI"
+        },
+        "@possession": 1,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 1,
+            "name": "Regular Play"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "18": {
+        "duration": 0.0,
+        "related_events": [
+            "3955c5cc-64a8-4256-8bcf-db9af22753f2"
+        ],
+        "@id": "fc979483-b7ba-46b0-8683-7635fb60c6e6",
+        "@index": 3,
+        "@period": 1,
+        "@timestamp": "00:00:00.000",
+        "@minute": 0,
+        "@second": 0,
+        "@type": {
+            "id": 18,
+            "name": "Half Start"
+        },
+        "@possession": 1,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 1,
+            "name": "Regular Play"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "30": {
+        "player": {
+            "id": 386651,
+            "name": "Juan Ignacio G\u00f3mez Taleb"
+        },
+        "position": {
+            "id": 21,
+            "name": "Left Wing"
+        },
+        "location": [
+            61.0,
+            40.1
+        ],
+        "duration": 0.36813,
+        "related_events": [
+            "c3d6e190-77c0-44a2-84c1-8fcf2b647680"
+        ],
+        "pass": {
+            "recipient": {
+                "id": 6686,
+                "name": "Giampaolo Pazzini"
+            },
+            "length": 1.6155494,
+            "angle": 1.9513026,
+            "height": {
+                "id": 1,
+                "name": "Ground Pass"
+            },
+            "end_location": [
+                60.4,
+                41.6
+            ],
+            "body_part": {
+                "id": 38,
+                "name": "Left Foot"
+            },
+            "type": {
+                "id": 65,
+                "name": "Kick Off"
+            }
+        },
+        "@id": "96f97982-f193-4a6c-916b-acea383c8f5c",
+        "@index": 5,
+        "@period": 1,
+        "@timestamp": "00:00:01.895",
+        "@minute": 0,
+        "@second": 1,
+        "@type": {
+            "id": 30,
+            "name": "Pass"
+        },
+        "@possession": 2,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 9,
+            "name": "From Kick Off"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "42": {
+        "player": {
+            "id": 6686,
+            "name": "Giampaolo Pazzini"
+        },
+        "position": {
+            "id": 23,
+            "name": "Center Forward"
+        },
+        "location": [
+            60.4,
+            41.6
+        ],
+        "related_events": [
+            "96f97982-f193-4a6c-916b-acea383c8f5c"
+        ],
+        "@id": "c3d6e190-77c0-44a2-84c1-8fcf2b647680",
+        "@index": 6,
+        "@period": 1,
+        "@timestamp": "00:00:02.263",
+        "@minute": 0,
+        "@second": 2,
+        "@type": {
+            "id": 42,
+            "name": "Ball Receipt*"
+        },
+        "@possession": 2,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 9,
+            "name": "From Kick Off"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "43": {
+        "player": {
+            "id": 6686,
+            "name": "Giampaolo Pazzini"
+        },
+        "position": {
+            "id": 23,
+            "name": "Center Forward"
+        },
+        "location": [
+            60.4,
+            41.6
+        ],
+        "duration": 0.389857,
+        "related_events": [
+            "c3d6e190-77c0-44a2-84c1-8fcf2b647680",
+            "cde2c3d5-2391-4016-aa19-7115b7ced125"
+        ],
+        "carry": {
+            "end_location": [
+                60.9,
+                41.8
+            ]
+        },
+        "@id": "f26a0925-171d-462f-b572-2850df955a3b",
+        "@index": 7,
+        "@period": 1,
+        "@timestamp": "00:00:02.263",
+        "@minute": 0,
+        "@second": 2,
+        "@type": {
+            "id": 43,
+            "name": "Carry"
+        },
+        "@possession": 2,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 9,
+            "name": "From Kick Off"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "17": {
+        "player": {
+            "id": 5512,
+            "name": "Emil Hallfre\u00f0sson"
+        },
+        "position": {
+            "id": 15,
+            "name": "Left Center Midfield"
+        },
+        "location": [
+            70.8,
+            42.9
+        ],
+        "duration": 0.922066,
+        "counterpress": true,
+        "related_events": [
+            "0e125bf6-537c-4845-802e-26f10c469a8c",
+            "26bc0069-7a65-4ada-b2dc-4d5e4a055141"
+        ],
+        "@id": "32b4710e-8e18-4b00-8b31-bea940e2cc77",
+        "@index": 17,
+        "@period": 1,
+        "@timestamp": "00:00:10.276",
+        "@minute": 0,
+        "@second": 10,
+        "@type": {
+            "id": 17,
+            "name": "Pressure"
+        },
+        "@possession": 3,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 1,
+            "name": "Regular Play"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "22": {
+        "player": {
+            "id": 5512,
+            "name": "Emil Hallfre\u00f0sson"
+        },
+        "position": {
+            "id": 15,
+            "name": "Left Center Midfield"
+        },
+        "location": [
+            71.2,
+            40.5
+        ],
+        "duration": 0.0,
+        "counterpress": true,
+        "related_events": [
+            "0c0afcf9-1257-43d7-9d9d-6b90ab5c4910",
+            "26bc0069-7a65-4ada-b2dc-4d5e4a055141"
+        ],
+        "@id": "e897ccff-8e73-4429-8d48-cfe062fb6055",
+        "@index": 20,
+        "@period": 1,
+        "@timestamp": "00:00:11.405",
+        "@minute": 0,
+        "@second": 11,
+        "@type": {
+            "id": 22,
+            "name": "Foul Committed"
+        },
+        "@possession": 3,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 1,
+            "name": "Regular Play"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "21": {
+        "player": {
+            "id": 7793,
+            "name": "Kevin Lasagna"
+        },
+        "position": {
+            "id": 23,
+            "name": "Center Forward"
+        },
+        "location": [
+            48.9,
+            39.6
+        ],
+        "duration": 0.0,
+        "under_pressure": true,
+        "related_events": [
+            "e897ccff-8e73-4429-8d48-cfe062fb6055"
+        ],
+        "@id": "0c0afcf9-1257-43d7-9d9d-6b90ab5c4910",
+        "@index": 21,
+        "@period": 1,
+        "@timestamp": "00:00:11.405",
+        "@minute": 0,
+        "@second": 11,
+        "@type": {
+            "id": 21,
+            "name": "Foul Won"
+        },
+        "@possession": 3,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 1,
+            "name": "Regular Play"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "3": {
+        "player": {
+            "id": 7695,
+            "name": "Samuel Souprayen"
+        },
+        "position": {
+            "id": 6,
+            "name": "Left Back"
+        },
+        "location": [
+            54.8,
+            12.9
+        ],
+        "duration": 0.0,
+        "under_pressure": true,
+        "related_events": [
+            "855f9af4-caa5-4754-a397-03f1f21abe0d"
+        ],
+        "@id": "956117db-d195-40bb-a049-56a5f037a8e8",
+        "@index": 58,
+        "@period": 1,
+        "@timestamp": "00:01:07.984",
+        "@minute": 1,
+        "@second": 7,
+        "@type": {
+            "id": 3,
+            "name": "Dispossessed"
+        },
+        "@possession": 5,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 4,
+            "name": "From Throw In"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "4": {
+        "player": {
+            "id": 7696,
+            "name": "Ryder Matos Santos"
+        },
+        "position": {
+            "id": 17,
+            "name": "Right Wing"
+        },
+        "location": [
+            65.3,
+            67.2
+        ],
+        "duration": 0.0,
+        "under_pressure": true,
+        "related_events": [
+            "956117db-d195-40bb-a049-56a5f037a8e8"
+        ],
+        "duel": {
+            "type": {
+                "id": 11,
+                "name": "Tackle"
+            },
+            "outcome": {
+                "id": 16,
+                "name": "Success In Play"
+            }
+        },
+        "@id": "855f9af4-caa5-4754-a397-03f1f21abe0d",
+        "@index": 59,
+        "@period": 1,
+        "@timestamp": "00:01:07.984",
+        "@minute": 1,
+        "@second": 7,
+        "@type": {
+            "id": 4,
+            "name": "Duel"
+        },
+        "@possession": 5,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 4,
+            "name": "From Throw In"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "2": {
+        "player": {
+            "id": 31488,
+            "name": "Vangelis Moras"
+        },
+        "position": {
+            "id": 5,
+            "name": "Left Center Back"
+        },
+        "location": [
+            59.1,
+            27.3
+        ],
+        "duration": 0.0,
+        "related_events": [
+            "58cc37eb-3b2e-4bf8-8592-7293a67491f7"
+        ],
+        "@id": "2af6d0e6-8ac8-4b87-94b1-554a211fc490",
+        "@index": 74,
+        "@period": 1,
+        "@timestamp": "00:01:58.179",
+        "@minute": 1,
+        "@second": 58,
+        "@type": {
+            "id": 2,
+            "name": "Ball Recovery"
+        },
+        "@possession": 6,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 3,
+            "name": "From Free Kick"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "10": {
+        "player": {
+            "id": 387300,
+            "name": "Cristian Zaccardo"
+        },
+        "position": {
+            "id": 2,
+            "name": "Right Back"
+        },
+        "location": [
+            46.9,
+            69.8
+        ],
+        "duration": 0.0,
+        "related_events": [
+            "8b60009b-6192-4299-a0c9-879272d04d30"
+        ],
+        "interception": {
+            "outcome": {
+                "id": 4,
+                "name": "Won"
+            }
+        },
+        "@id": "df1d343a-f34d-4148-867f-d823f773b9cc",
+        "@index": 78,
+        "@period": 1,
+        "@timestamp": "00:02:00.151",
+        "@minute": 2,
+        "@second": 0,
+        "@type": {
+            "id": 10,
+            "name": "Interception"
+        },
+        "@possession": 6,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 3,
+            "name": "From Free Kick"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "14": {
+        "player": {
+            "id": 32119,
+            "name": "Leandro Greco"
+        },
+        "position": {
+            "id": 10,
+            "name": "Center Defensive Midfield"
+        },
+        "location": [
+            48.7,
+            43.7
+        ],
+        "duration": 0.0,
+        "under_pressure": true,
+        "related_events": [
+            "4201c68d-bcb2-4fa6-ba22-ab208e6583fc"
+        ],
+        "dribble": {
+            "outcome": {
+                "id": 9,
+                "name": "Incomplete"
+            }
+        },
+        "@id": "66f6165a-06a1-474b-a903-ada3d0ebc218",
+        "@index": 99,
+        "@period": 1,
+        "@timestamp": "00:02:32.298",
+        "@minute": 2,
+        "@second": 32,
+        "@type": {
+            "id": 14,
+            "name": "Dribble"
+        },
+        "@possession": 7,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 3,
+            "name": "From Free Kick"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "38": {
+        "player": {
+            "id": 7793,
+            "name": "Kevin Lasagna"
+        },
+        "position": {
+            "id": 23,
+            "name": "Center Forward"
+        },
+        "location": [
+            84.3,
+            65.9
+        ],
+        "duration": 0.0,
+        "@id": "f271bf83-f4cc-425d-acd7-812844b1b4d0",
+        "@index": 117,
+        "@period": 1,
+        "@timestamp": "00:02:49.621",
+        "@minute": 2,
+        "@second": 49,
+        "@type": {
+            "id": 38,
+            "name": "Miscontrol"
+        },
+        "@possession": 9,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 4,
+            "name": "From Throw In"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "9": {
+        "player": {
+            "id": 8278,
+            "name": "Nicol\u00e1s Federico Spolli"
+        },
+        "position": {
+            "id": 3,
+            "name": "Right Center Back"
+        },
+        "location": [
+            14.2,
+            35.1
+        ],
+        "duration": 0.0,
+        "under_pressure": true,
+        "related_events": [
+            "7b50fb62-9cb1-4059-961d-5308d8d4eaf4"
+        ],
+        "clearance": {
+            "right_foot": true,
+            "body_part": {
+                "id": 40,
+                "name": "Right Foot"
+            }
+        },
+        "@id": "805ade34-b9f4-48ff-8510-12b70ae637c2",
+        "@index": 162,
+        "@period": 1,
+        "@timestamp": "00:04:16.078",
+        "@minute": 4,
+        "@second": 16,
+        "@type": {
+            "id": 9,
+            "name": "Clearance"
+        },
+        "@possession": 14,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 3,
+            "name": "From Free Kick"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "6": {
+        "player": {
+            "id": 7695,
+            "name": "Samuel Souprayen"
+        },
+        "position": {
+            "id": 6,
+            "name": "Left Back"
+        },
+        "location": [
+            68.5,
+            14.8
+        ],
+        "duration": 0.0,
+        "counterpress": true,
+        "related_events": [
+            "28d49abe-bea9-4fe3-867f-18e36747423b"
+        ],
+        "@id": "2bd345ca-c528-4beb-ad9d-fcaa2959a041",
+        "@index": 184,
+        "@period": 1,
+        "@timestamp": "00:04:41.482",
+        "@minute": 4,
+        "@second": 41,
+        "@type": {
+            "id": 6,
+            "name": "Block"
+        },
+        "@possession": 14,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 3,
+            "name": "From Free Kick"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "39": {
+        "player": {
+            "id": 387475,
+            "name": "Andrea Lazzari"
+        },
+        "position": {
+            "id": 15,
+            "name": "Left Center Midfield"
+        },
+        "location": [
+            31.0,
+            3.6
+        ],
+        "duration": 0.0,
+        "related_events": [
+            "29c89586-fb21-4e42-a724-39567010697b",
+            "d0532c3b-0a86-4aaf-a571-e64481aec33a"
+        ],
+        "@id": "7dc73c3a-d3ff-498d-a561-d8bfb82476f0",
+        "@index": 201,
+        "@period": 1,
+        "@timestamp": "00:04:55.657",
+        "@minute": 4,
+        "@second": 55,
+        "@type": {
+            "id": 39,
+            "name": "Dribbled Past"
+        },
+        "@possession": 14,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 3,
+            "name": "From Free Kick"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "16": {
+        "player": {
+            "id": 32119,
+            "name": "Leandro Greco"
+        },
+        "position": {
+            "id": 10,
+            "name": "Center Defensive Midfield"
+        },
+        "location": [
+            94.5,
+            54.5
+        ],
+        "duration": 1.178266,
+        "related_events": [
+            "495378fc-a52c-4182-b499-c32e095dc1b9"
+        ],
+        "shot": {
+            "statsbomb_xg": 0.014390598,
+            "end_location": [
+                118.2,
+                40.2,
+                0.5
+            ],
+            "technique": {
+                "id": 91,
+                "name": "Half Volley"
+            },
+            "body_part": {
+                "id": 38,
+                "name": "Left Foot"
+            },
+            "type": {
+                "id": 87,
+                "name": "Open Play"
+            },
+            "outcome": {
+                "id": 100,
+                "name": "Saved"
+            },
+            "freeze_frame": [
+                {
+                    "location": [
+                        118.7,
+                        39.8
+                    ],
+                    "player": {
+                        "id": 387477,
+                        "name": "Francesco Benussi"
+                    },
+                    "position": {
+                        "id": 1,
+                        "name": "Goalkeeper"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        105.6,
+                        36.4
+                    ],
+                    "player": {
+                        "id": 387300,
+                        "name": "Cristian Zaccardo"
+                    },
+                    "position": {
+                        "id": 2,
+                        "name": "Right Back"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        103.6,
+                        50.1
+                    ],
+                    "player": {
+                        "id": 31572,
+                        "name": "Luca Marrone"
+                    },
+                    "position": {
+                        "id": 10,
+                        "name": "Center Defensive Midfield"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        106.6,
+                        53.6
+                    ],
+                    "player": {
+                        "id": 387475,
+                        "name": "Andrea Lazzari"
+                    },
+                    "position": {
+                        "id": 15,
+                        "name": "Left Center Midfield"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        104.5,
+                        48.1
+                    ],
+                    "player": {
+                        "id": 7172,
+                        "name": "Simone Romagnoli"
+                    },
+                    "position": {
+                        "id": 5,
+                        "name": "Left Center Back"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        104.7,
+                        44.0
+                    ],
+                    "player": {
+                        "id": 8278,
+                        "name": "Nicol\u00e1s Federico Spolli"
+                    },
+                    "position": {
+                        "id": 3,
+                        "name": "Right Center Back"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        97.4,
+                        58.0
+                    ],
+                    "player": {
+                        "id": 11502,
+                        "name": "Antonio Di Gaudio"
+                    },
+                    "position": {
+                        "id": 21,
+                        "name": "Left Wing"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        99.4,
+                        52.5
+                    ],
+                    "player": {
+                        "id": 3416,
+                        "name": "Gabriel Mois\u00e9s Antunes da Silva"
+                    },
+                    "position": {
+                        "id": 6,
+                        "name": "Left Back"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        97.5,
+                        44.4
+                    ],
+                    "player": {
+                        "id": 352172,
+                        "name": "Raffaele Bianco"
+                    },
+                    "position": {
+                        "id": 13,
+                        "name": "Right Center Midfield"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        94.6,
+                        31.3
+                    ],
+                    "player": {
+                        "id": 7696,
+                        "name": "Ryder Matos Santos"
+                    },
+                    "position": {
+                        "id": 17,
+                        "name": "Right Wing"
+                    },
+                    "teammate": false
+                },
+                {
+                    "location": [
+                        103.2,
+                        62.0
+                    ],
+                    "player": {
+                        "id": 7949,
+                        "name": "Artur Ioni\u0163\u0103"
+                    },
+                    "position": {
+                        "id": 13,
+                        "name": "Right Center Midfield"
+                    },
+                    "teammate": true
+                },
+                {
+                    "location": [
+                        110.3,
+                        56.1
+                    ],
+                    "player": {
+                        "id": 7020,
+                        "name": "Jacopo Sala"
+                    },
+                    "position": {
+                        "id": 17,
+                        "name": "Right Wing"
+                    },
+                    "teammate": true
+                },
+                {
+                    "location": [
+                        106.9,
+                        47.3
+                    ],
+                    "player": {
+                        "id": 6686,
+                        "name": "Giampaolo Pazzini"
+                    },
+                    "position": {
+                        "id": 23,
+                        "name": "Center Forward"
+                    },
+                    "teammate": true
+                },
+                {
+                    "location": [
+                        103.7,
+                        38.3
+                    ],
+                    "player": {
+                        "id": 386651,
+                        "name": "Juan Ignacio G\u00f3mez Taleb"
+                    },
+                    "position": {
+                        "id": 21,
+                        "name": "Left Wing"
+                    },
+                    "teammate": true
+                },
+                {
+                    "location": [
+                        95.0,
+                        44.4
+                    ],
+                    "player": {
+                        "id": 5512,
+                        "name": "Emil Hallfre\u00f0sson"
+                    },
+                    "position": {
+                        "id": 15,
+                        "name": "Left Center Midfield"
+                    },
+                    "teammate": true
+                },
+                {
+                    "location": [
+                        90.7,
+                        32.3
+                    ],
+                    "player": {
+                        "id": 7695,
+                        "name": "Samuel Souprayen"
+                    },
+                    "position": {
+                        "id": 6,
+                        "name": "Left Back"
+                    },
+                    "teammate": true
+                },
+                {
+                    "location": [
+                        100.1,
+                        74.1
+                    ],
+                    "player": {
+                        "id": 11342,
+                        "name": "Eros Pisano"
+                    },
+                    "position": {
+                        "id": 2,
+                        "name": "Right Back"
+                    },
+                    "teammate": true
+                }
+            ]
+        },
+        "@id": "943d24cf-3f41-41d0-81b9-c7237c374426",
+        "@index": 289,
+        "@period": 1,
+        "@timestamp": "00:09:41.129",
+        "@minute": 9,
+        "@second": 41,
+        "@type": {
+            "id": 16,
+            "name": "Shot"
+        },
+        "@possession": 24,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 4,
+            "name": "From Throw In"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "23": {
+        "player": {
+            "id": 387477,
+            "name": "Francesco Benussi"
+        },
+        "position": {
+            "id": 1,
+            "name": "Goalkeeper"
+        },
+        "location": [
+            1.4,
+            40.3
+        ],
+        "duration": 0.0,
+        "related_events": [
+            "943d24cf-3f41-41d0-81b9-c7237c374426"
+        ],
+        "goalkeeper": {
+            "technique": {
+                "id": 46,
+                "name": "Standing"
+            },
+            "position": {
+                "id": 44,
+                "name": "Set"
+            },
+            "body_part": {
+                "id": 35,
+                "name": "Both Hands"
+            },
+            "type": {
+                "id": 33,
+                "name": "Shot Saved"
+            },
+            "outcome": {
+                "id": 15,
+                "name": "Success"
+            }
+        },
+        "@id": "495378fc-a52c-4182-b499-c32e095dc1b9",
+        "@index": 290,
+        "@period": 1,
+        "@timestamp": "00:09:42.307",
+        "@minute": 9,
+        "@second": 42,
+        "@type": {
+            "id": 23,
+            "name": "Goal Keeper"
+        },
+        "@possession": 24,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 4,
+            "name": "From Throw In"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "40": {
+        "player": {
+            "id": 7172,
+            "name": "Simone Romagnoli"
+        },
+        "position": {
+            "id": 5,
+            "name": "Left Center Back"
+        },
+        "duration": 0.0,
+        "@id": "a793be5f-79a4-4eab-a8e7-003d7a01b665",
+        "@index": 639,
+        "@period": 1,
+        "@timestamp": "00:20:52.170",
+        "@minute": 20,
+        "@second": 52,
+        "@type": {
+            "id": 40,
+            "name": "Injury Stoppage"
+        },
+        "@possession": 52,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 3,
+            "name": "From Free Kick"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "27": {
+        "player": {
+            "id": 31488,
+            "name": "Vangelis Moras"
+        },
+        "position": {
+            "id": 5,
+            "name": "Left Center Back"
+        },
+        "duration": 0.0,
+        "related_events": [
+            "699b0740-fbcb-4509-a703-7ad1206cfd02"
+        ],
+        "@id": "e8cd8f13-6b1d-46ed-aec1-6f3c891817cf",
+        "@index": 642,
+        "@period": 1,
+        "@timestamp": "00:22:00.244",
+        "@minute": 22,
+        "@second": 0,
+        "@type": {
+            "id": 27,
+            "name": "Player Off"
+        },
+        "@possession": 52,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 3,
+            "name": "From Free Kick"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "41": {
+        "off_camera": true,
+        "location": [
+            68.8,
+            40.1
+        ],
+        "duration": 0.0,
+        "@id": "f14623ee-d21e-4228-b1c4-2f4c4343b50d",
+        "@index": 643,
+        "@period": 1,
+        "@timestamp": "00:22:00.774",
+        "@minute": 22,
+        "@second": 0,
+        "@type": {
+            "id": 41,
+            "name": "Referee Ball-Drop"
+        },
+        "@possession": 53,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 5,
+            "name": "Other"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "26": {
+        "player": {
+            "id": 31488,
+            "name": "Vangelis Moras"
+        },
+        "position": {
+            "id": 5,
+            "name": "Left Center Back"
+        },
+        "duration": 0.0,
+        "related_events": [
+            "e8cd8f13-6b1d-46ed-aec1-6f3c891817cf"
+        ],
+        "@id": "699b0740-fbcb-4509-a703-7ad1206cfd02",
+        "@index": 672,
+        "@period": 1,
+        "@timestamp": "00:22:28.491",
+        "@minute": 22,
+        "@second": 28,
+        "@type": {
+            "id": 26,
+            "name": "Player On"
+        },
+        "@possession": 54,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 5,
+            "name": "Other"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "24": {
+        "player": {
+            "id": 7172,
+            "name": "Simone Romagnoli"
+        },
+        "position": {
+            "id": 5,
+            "name": "Left Center Back"
+        },
+        "duration": 0.0,
+        "bad_behaviour": {
+            "card": {
+                "id": 7,
+                "name": "Yellow Card"
+            }
+        },
+        "@id": "c62fb26a-8b2d-40b1-b428-47547492504d",
+        "@index": 1103,
+        "@period": 1,
+        "@timestamp": "00:34:48.741",
+        "@minute": 34,
+        "@second": 48,
+        "@type": {
+            "id": 24,
+            "name": "Bad Behaviour"
+        },
+        "@possession": 82,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 1,
+            "name": "Regular Play"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "34": {
+        "duration": 0.0,
+        "related_events": [
+            "9539818f-de50-4e46-ac73-154f42dfd823"
+        ],
+        "@id": "729d406f-e881-4ce3-8e35-b4d59863436c",
+        "@index": 1457,
+        "@period": 1,
+        "@timestamp": "00:46:03.546",
+        "@minute": 46,
+        "@second": 3,
+        "@type": {
+            "id": 34,
+            "name": "Half End"
+        },
+        "@possession": 113,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 4,
+            "name": "From Throw In"
+        },
+        "@team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        }
+    },
+    "36": {
+        "duration": 0.0,
+        "tactics": {
+            "formation": 433,
+            "lineup": [
+                {
+                    "player": {
+                        "id": 387477,
+                        "name": "Francesco Benussi"
+                    },
+                    "position": {
+                        "id": 1,
+                        "name": "Goalkeeper"
+                    },
+                    "jersey_number": 22
+                },
+                {
+                    "player": {
+                        "id": 387300,
+                        "name": "Cristian Zaccardo"
+                    },
+                    "position": {
+                        "id": 2,
+                        "name": "Right Back"
+                    },
+                    "jersey_number": 5
+                },
+                {
+                    "player": {
+                        "id": 8278,
+                        "name": "Nicol\u00e1s Federico Spolli"
+                    },
+                    "position": {
+                        "id": 3,
+                        "name": "Right Center Back"
+                    },
+                    "jersey_number": 33
+                },
+                {
+                    "player": {
+                        "id": 7172,
+                        "name": "Simone Romagnoli"
+                    },
+                    "position": {
+                        "id": 5,
+                        "name": "Left Center Back"
+                    },
+                    "jersey_number": 21
+                },
+                {
+                    "player": {
+                        "id": 3416,
+                        "name": "Gabriel Mois\u00e9s Antunes da Silva"
+                    },
+                    "position": {
+                        "id": 6,
+                        "name": "Left Back"
+                    },
+                    "jersey_number": 34
+                },
+                {
+                    "player": {
+                        "id": 31572,
+                        "name": "Luca Marrone"
+                    },
+                    "position": {
+                        "id": 10,
+                        "name": "Center Defensive Midfield"
+                    },
+                    "jersey_number": 39
+                },
+                {
+                    "player": {
+                        "id": 352172,
+                        "name": "Raffaele Bianco"
+                    },
+                    "position": {
+                        "id": 13,
+                        "name": "Right Center Midfield"
+                    },
+                    "jersey_number": 8
+                },
+                {
+                    "player": {
+                        "id": 387475,
+                        "name": "Andrea Lazzari"
+                    },
+                    "position": {
+                        "id": 15,
+                        "name": "Left Center Midfield"
+                    },
+                    "jersey_number": 10
+                },
+                {
+                    "player": {
+                        "id": 11502,
+                        "name": "Antonio Di Gaudio"
+                    },
+                    "position": {
+                        "id": 17,
+                        "name": "Right Wing"
+                    },
+                    "jersey_number": 11
+                },
+                {
+                    "player": {
+                        "id": 7696,
+                        "name": "Ryder Matos Santos"
+                    },
+                    "position": {
+                        "id": 21,
+                        "name": "Left Wing"
+                    },
+                    "jersey_number": 7
+                },
+                {
+                    "player": {
+                        "id": 7793,
+                        "name": "Kevin Lasagna"
+                    },
+                    "position": {
+                        "id": 23,
+                        "name": "Center Forward"
+                    },
+                    "jersey_number": 15
+                }
+            ]
+        },
+        "@id": "1dd4d6d3-ad43-47bd-bd77-2ad106669700",
+        "@index": 1773,
+        "@period": 2,
+        "@timestamp": "00:07:58.610",
+        "@minute": 52,
+        "@second": 58,
+        "@type": {
+            "id": 36,
+            "name": "Tactical Shift"
+        },
+        "@possession": 133,
+        "@possession_team": {
+            "id": 226,
+            "name": "Hellas Verona"
+        },
+        "@play_pattern": {
+            "id": 1,
+            "name": "Regular Play"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "19": {
+        "player": {
+            "id": 8278,
+            "name": "Nicol\u00e1s Federico Spolli"
+        },
+        "position": {
+            "id": 3,
+            "name": "Right Center Back"
+        },
+        "duration": 0.0,
+        "substitution": {
+            "outcome": {
+                "id": 102,
+                "name": "Injury"
+            },
+            "replacement": {
+                "id": 387474,
+                "name": "Igor Bubnji\u0107"
+            }
+        },
+        "@id": "188942b1-ab72-4a71-b014-0f13364bf062",
+        "@index": 1853,
+        "@period": 2,
+        "@timestamp": "00:11:11.467",
+        "@minute": 56,
+        "@second": 11,
+        "@type": {
+            "id": 19,
+            "name": "Substitution"
+        },
+        "@possession": 136,
+        "@possession_team": {
+            "id": 1683,
+            "name": "Carpi"
+        },
+        "@play_pattern": {
+            "id": 1,
+            "name": "Regular Play"
+        },
+        "@team": {
+            "id": 1683,
+            "name": "Carpi"
+        }
+    },
+    "28": {
+        "player": {
+            "id": 3047,
+            "name": "Beno\u00eet Assou-Ekotto"
+        },
+        "position": {
+            "id": 5,
+            "name": "Left Center Back"
+        },
+        "location": [
+            7.0,
+            6.7
+        ],
+        "duration": 0.0,
+        "under_pressure": true,
+        "related_events": [
+            "9d553533-46ad-495b-afae-18eb9651d0a0"
+        ],
+        "@id": "2f77d393-f448-4556-b114-af996ae9249a",
+        "@index": 1793,
+        "@period": 2,
+        "@timestamp": "00:01:47.373",
+        "@minute": 46,
+        "@second": 47,
+        "@type": {
+            "id": 28,
+            "name": "Shield"
+        },
+        "@possession": 106,
+        "@possession_team": {
+            "id": 136,
+            "name": "OGC Nice"
+        },
+        "@play_pattern": {
+            "id": 3,
+            "name": "From Free Kick"
+        },
+        "@team": {
+            "id": 135,
+            "name": "Saint-\u00c9tienne"
+        }
+    },
+    "33": {
+        "player": {
+            "id": 3200,
+            "name": "Renaud Cohade"
+        },
+        "position": {
+            "id": 15,
+            "name": "Left Center Midfield"
+        },
+        "location": [
+            63.4,
+            23.0
+        ],
+        "duration": 0.0,
+        "under_pressure": true,
+        "related_events": [
+            "b298f87b-7610-43bc-9bd7-8010c7df61fa"
+        ],
+        "50_50": {
+            "outcome": {
+                "id": 2,
+                "name": "Success To Opposition"
+            }
+        },
+        "@id": "0a9ca23f-5750-49b3-abdb-f8d6a419b389",
+        "@index": 2811,
+        "@period": 2,
+        "@timestamp": "00:33:55.289",
+        "@minute": 78,
+        "@second": 55,
+        "@type": {
+            "id": 33,
+            "name": "50/50"
+        },
+        "@possession": 154,
+        "@possession_team": {
+            "id": 136,
+            "name": "OGC Nice"
+        },
+        "@play_pattern": {
+            "id": 2,
+            "name": "From Corner"
+        },
+        "@team": {
+            "id": 135,
+            "name": "Saint-\u00c9tienne"
+        }
+    },
+    "37": {
+        "player": {
+            "id": 3991,
+            "name": "Allan Romeo Nyom"
+        },
+        "position": {
+            "id": 2,
+            "name": "Right Back"
+        },
+        "location": [
+            15.6,
+            58.3
+        ],
+        "duration": 0.0,
+        "@id": "39abe2d7-5fb1-4cf3-a4ea-77c4e781510e",
+        "@index": 3381,
+        "@period": 2,
+        "@timestamp": "00:43:18.012",
+        "@minute": 88,
+        "@second": 18,
+        "@type": {
+            "id": 37,
+            "name": "Error"
+        },
+        "@possession": 186,
+        "@possession_team": {
+            "id": 29,
+            "name": "Everton"
+        },
+        "@play_pattern": {
+            "id": 4,
+            "name": "From Throw In"
+        },
+        "@team": {
+            "id": 23,
+            "name": "Watford"
+        }
+    },
+    "8": {
+        "player": {
+            "id": 31563,
+            "name": "Rachel Williams"
+        },
+        "position": {
+            "id": 23,
+            "name": "Center Forward"
+        },
+        "location": [
+            87.1,
+            39.7
+        ],
+        "duration": 0.0,
+        "@id": "108b3430-85e1-4c20-b541-0083d97fa56e",
+        "@index": 2076,
+        "@period": 2,
+        "@timestamp": "00:04:55.662",
+        "@minute": 49,
+        "@second": 55,
+        "@type": {
+            "id": 8,
+            "name": "Offside"
+        },
+        "@possession": 140,
+        "@possession_team": {
+            "id": 974,
+            "name": "Reading WFC"
+        },
+        "@play_pattern": {
+            "id": 7,
+            "name": "From Goal Kick"
+        },
+        "@team": {
+            "id": 969,
+            "name": "Birmingham City WFC"
+        }
+    },
+    "5": {
+        "@id": "f05a5c9c-55cc-45ee-a10b-83e68647c5d6",
+        "@index": 258,
+        "@period": 1,
+        "@timestamp": "00:06:41.993",
+        "@minute": 6,
+        "@second": 41,
+        "@type": {
+            "id": 5,
+            "name": "Camera On"
+        },
+        "@possession": 17,
+        "@possession_team": {
+            "id": 746,
+            "name": "Manchester City WFC"
+        },
+        "@play_pattern": {
+            "id": 1,
+            "name": "Regular Play"
+        },
+        "@team": {
+            "id": 746,
+            "name": "Manchester City WFC"
+        }
+    },
+    "29": {
+        "@id": "6208ddaa-a11d-4a9b-af58-50367da2eb2f",
+        "@index": 3381,
+        "@period": 2,
+        "@timestamp": "00:36:36.798",
+        "@minute": 81,
+        "@second": 36,
+        "@type": {
+            "id": 29,
+            "name": "Camera off"
+        },
+        "@possession": 200,
+        "@possession_team": {
+            "id": 971,
+            "name": "Chelsea FCW"
+        },
+        "@play_pattern": {
+            "id": 8,
+            "name": "From Keeper"
+        },
+        "@team": {
+            "id": 971,
+            "name": "Chelsea FCW"
+        }
+    },
+    "25": {
+        "location": [
+            111.8,
+            36.0
+        ],
+        "duration": 0.0,
+        "related_events": [
+            "cf103b81-a887-427a-8ef0-391548f54624"
+        ],
+        "@id": "68169f23-6c57-4627-96df-35b485da96e8",
+        "@index": 1010,
+        "@period": 1,
+        "@timestamp": "00:30:14.852",
+        "@minute": 30,
+        "@second": 14,
+        "@type": {
+            "id": 25,
+            "name": "Own Goal For"
+        },
+        "@possession": 53,
+        "@possession_team": {
+            "id": 241,
+            "name": "Torino"
+        },
+        "@play_pattern": {
+            "id": 4,
+            "name": "From Throw In"
+        },
+        "@team": {
+            "id": 241,
+            "name": "Torino"
+        }
+    },
+    "20": {
+        "player": {
+            "id": 5584,
+            "name": "Giancarlo Gonz\u00e1lez Castro"
+        },
+        "position": {
+            "id": 3,
+            "name": "Right Center Back"
+        },
+        "location": [
+            8.3,
+            44.1
+        ],
+        "duration": 0.0,
+        "related_events": [
+            "68169f23-6c57-4627-96df-35b485da96e8"
+        ],
+        "@id": "cf103b81-a887-427a-8ef0-391548f54624",
+        "@index": 1011,
+        "@period": 1,
+        "@timestamp": "00:30:14.852",
+        "@minute": 30,
+        "@second": 14,
+        "@type": {
+            "id": 20,
+            "name": "Own Goal Against"
+        },
+        "@possession": 53,
+        "@possession_team": {
+            "id": 241,
+            "name": "Torino"
+        },
+        "@play_pattern": {
+            "id": 4,
+            "name": "From Throw In"
+        },
+        "@team": {
+            "id": 2256,
+            "name": "Palermo"
+        }
+    }
+}
