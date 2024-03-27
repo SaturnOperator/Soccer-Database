@@ -1,0 +1,12 @@
+# Ignore these files
+open-data-0067cae166a56aa80b2ef18f61e16158d6a7359a.zip
+Project_COMP_3005_W24_V1.pdf
+
+# Ignore these directories
+open-data-0067cae166a56aa80b2ef18f61e16158d6a7359a/
+test/
+
+.DS_Store
+misc/.DS_Store
+docs/.DS_Store
+json_loader/.DS_Store
