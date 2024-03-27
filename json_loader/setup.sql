@@ -31,24 +31,27 @@ CREATE TABLE competition_stage (
 
 CREATE TABLE competition (
     competition_id INTEGER PRIMARY KEY,
-    season_id INTEGER NOT NULL,
-    country_id INTEGER REFERENCES country(country_id),
     competition_name VARCHAR(50) NOT NULL,
+    location VARCHAR(50),
+    gender VARCHAR(10),
+    youth BOOLEAN,
+    international BOOLEAN
+);
+
+CREATE TABLE season (
+    season_id INTEGER PRIMARY KEY,
     season_name VARCHAR(50) NOT NULL,
-    competition_gender VARCHAR(10),
-    competition_youth BOOLEAN,
-    competition_international BOOLEAN
+    competition_id INTEGER REFERENCES competition(competition_id)
 );
 
 CREATE TABLE game_match (
     match_id INTEGER PRIMARY KEY,
-    competition_id INTEGER REFERENCES competition(competition_id),
-    season_id INTEGER NOT NULL,
+    season_id INTEGER REFERENCES season(season_id),
+    competition_stage_id INTEGER REFERENCES competition_stage(competition_stage_id),
+    stadium_id INTEGER REFERENCES stadium(stadium_id),
     match_date DATE,
     kick_off TIME,
-    match_week INTEGER,
-    competition_stage_id INTEGER REFERENCES competition_stage(competition_stage_id),
-    stadium_id INTEGER REFERENCES stadium(stadium_id)
+    match_week INTEGER
 );
 
 CREATE TABLE team (
@@ -79,7 +82,7 @@ CREATE TABLE lineup_player (
 CREATE TABLE lineup_manager (
     lineup_manager_id INTEGER PRIMARY KEY,
     lineup_team_id INTEGER REFERENCES lineup_team(lineup_team_id),
-    manager_id INTEGER REFERENCES manager(manager_id),
+    manager_id INTEGER REFERENCES manager(manager_id)
 );
 
 CREATE TABLE lineup_player_position (
@@ -112,18 +115,34 @@ CREATE TABLE lineup_player_card (
 CREATE INDEX idx_player_country ON player(country_id);
 
 -- Indexes for the competition table
-CREATE INDEX idx_competition_season_country ON competition(season_id, country_id);
-CREATE INDEX idx_competition_id ON competition(competition_id);
+CREATE INDEX idx_competition ON competition(competition_id);
+
+-- Indexes for the season table
+CREATE INDEX idx_season_competition ON season(competition_id);
+CREATE INDEX idx_season_id ON season(season_id);
 
 -- Indexes for the game_match table
-CREATE INDEX idx_game_match_competition_season ON game_match(competition_id, season_id);
-CREATE INDEX idx_game_match_id ON game_match(match_id);
+CREATE INDEX idx_game_match_season ON game_match(season_id);
+CREATE INDEX idx_game_match_competition_stage ON game_match(competition_stage_id);
+CREATE INDEX idx_game_match_stadium ON game_match(stadium_id);
+CREATE INDEX idx_game_match_date ON game_match(match_date);
 
 -- Indexes for the lineup_team table
-CREATE INDEX idx_lineup_team_match_team ON lineup_team(match_id, team_id);
+CREATE INDEX idx_lineup_team_match ON lineup_team(match_id);
+CREATE INDEX idx_lineup_team_team ON lineup_team(team_id);
 
 -- Indexes for the lineup_player table
-CREATE INDEX idx_lineup_player_lineup_team_player ON lineup_player(lineup_team_id, player_id);
+CREATE INDEX idx_lineup_player_lineup_team ON lineup_player(lineup_team_id);
+CREATE INDEX idx_lineup_player_player ON lineup_player(player_id);
+
+-- Indexes for the lineup_manager table
+CREATE INDEX idx_lineup_manager_lineup_team ON lineup_manager(lineup_team_id);
+CREATE INDEX idx_lineup_manager_manager ON lineup_manager(manager_id);
 
 -- Indexes for the lineup_player_position table
-CREATE INDEX idx_lineup_player_position_lineup_player_position ON lineup_player_position(lineup_player_id, position_id);
+CREATE INDEX idx_lineup_player_position_lineup_player ON lineup_player_position(lineup_player_id);
+CREATE INDEX idx_lineup_player_position_position ON lineup_player_position(position_id);
+
+-- Indexes for the lineup_player_card table
+CREATE INDEX idx_lineup_player_card_lineup_player ON lineup_player_card(lineup_player_id);
+CREATE INDEX idx_lineup_player_card_card_type ON lineup_player_card(card_type);

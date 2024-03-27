@@ -38,13 +38,17 @@ erDiagram
 	
 	competition {
 		int competition_id PK
-		int season_id
-		int country_id FK
 		string competition_name
-		string season_name
+		string competition_location
 		string competition_gender
 		bool competition_youth
-				bool competition_international
+		bool competition_international
+	}
+	
+	season {
+			int season_id
+			string season_name
+			int competition_id FK
 	}
 	
 	stadium {
@@ -68,7 +72,6 @@ erDiagram
 	
 	game_match {
 			int match_id PK
-			int competition_id FK
 			int season_id FK
 				string match_date
 				string kick_off
@@ -147,7 +150,8 @@ erDiagram
 	team ||--|| lineup_team : "FK: team_id"
 	lineup_team ||--|| lineup_player : "FK: lineup_team_id"
 	country ||--|| competition : "FK: country_id"
-	competition ||--|| game_match : "FK: competition_id, season_id"
+	competition ||--|| season : "FK: competition_id"
+	season ||--|| game_match : "FK: season_id"
 	stadium  ||--|| game_match : "FK: stadium_id"
 	competition_stage  ||--|| game_match : "FK: competition_stage_id"
   manager  ||--|| lineup_manager : "FK: manager_id"

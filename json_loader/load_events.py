@@ -161,6 +161,12 @@ def get_events_from_match_ids(match_ids):
 
     return events
 
+def get_competition_data_by_id(data, competition_id):
+    for comp in data:
+        if comp['competition_id'] == competition_id:
+            return comp
+    return None
+
 # Sanity check to make sure an ID is unique
 def check_unique_id(table, unique_id):
     if(type(table) != dict and type(unique_id) != unique_id):
@@ -232,6 +238,7 @@ if __name__ == "__main__":
     t_stadium = {}
     t_competition_stage = {}
     t_competition = {}
+    t_season = {}
     t_game_match = {}
     t_lineup_team = {}
     t_lineup_manager = {}
@@ -251,9 +258,31 @@ if __name__ == "__main__":
 
     for match_id in lineups:
         match_data = find_match_by_id(seasons, match_id)
+
+        # Create competition table
+        competition_id = match_data['competition']['competition_id']
+        comp_data = get_competition_data_by_id(competitions, competition_id)
+        competiton_row = { # TABLE:competition
+            "competition_name" : match_data['competition']['competition_name'],
+            # location: This can also be regions so using country isn't fitting
+            "location" :  match_data['competition']['country_name'], 
+            "gender" : comp_data['competition_gender'], 
+            "youth" : comp_data['competition_youth'], 
+            "international" : comp_data['competition_international'], 
+        }
+        t_competition[competition_id] = competiton_row
+
+        # Create season table
+        season_id = match_data['season']['season_id']
+        season_row = { # TABLE:season
+            "season_name" : match_data['season']['season_name'],
+            "competition_id" : competition_id,
+        }
+        t_season[season_id] = season_row
+
+        # Get home and away team ids
         home_team_id = match_data['home_team']['home_team_id']
         away_team_id = match_data['away_team']['away_team_id']
-
 
         # Get managers data and create table
         all_managers = []
@@ -272,19 +301,20 @@ if __name__ == "__main__":
             }
             t_manager[manager['id']] = manager_row
 
-            # Get countries data
+            # Get country data and make country table
             country_id = manager['country']['id']
             country_name = manager['country']['name']
             t_country[country_id] = {"country_name" : country_name} # TABLE:country
 
-
+        stadium_id = None
         # Get stadium data and create table
         if 'stadium' in match_data:
+            stadium_id = match_data['stadium']['id']
             stadium_row = { # TABLE:stadium
                 "stadium_name" : match_data['stadium']['name'],
                 "country_id" : match_data['stadium']['country']['id']
             }
-            t_stadium[match_data['stadium']['id']] = stadium_row
+            t_stadium[stadium_id] = stadium_row
 
             # Redundant in case stadium's country is not prev included
             country_id = match_data['stadium']['country']['id']
@@ -296,12 +326,16 @@ if __name__ == "__main__":
         competition_stage_name = match_data['competition_stage']['name']
         t_competition_stage[competition_stage_id] = {"competition_stage_name" : competition_stage_name} # TABLE:competition_stage
 
-        # # Create game_match table
-        # game_match_row = { # TABLE:game_match
-        #     "competition_id" : ,
-        #     "season_id" : ,
-        #     ""
-        # }
+        # Create game_match table
+        game_match_row = { # TABLE:game_match
+            "season_id" : match_data['season']['season_id'],
+            "competition_stage_id" : competition_stage_id,
+            "stadium_id" : stadium_id,
+            "match_date" : match_data['match_date'],
+            "match_week" : match_data['match_week'],
+            "kick_off" : match_data['kick_off'],
+        }
+        t_game_match[match_id] = game_match_row
 
         for team in lineups[match_id]:
             # Get team data
@@ -398,13 +432,19 @@ if __name__ == "__main__":
     print(dict_to_sql("player_position", "position_id", t_player_position))
     print(dict_to_sql("penalty_card", "card_type", t_penalty_card))
     print(dict_to_sql("country", "country_id", t_country))
+    print(dict_to_sql("competition", "competition_id", t_competition))
+    print(dict_to_sql("season", "season_id", t_season))
     print(dict_to_sql("team", "team_id", t_team))
     print(dict_to_sql("player", "player_id", t_player))
+    print(dict_to_sql("manager", "manager_id", t_manager))
+    print(dict_to_sql("stadium", "stadium_id", t_stadium))
+    print(dict_to_sql("competition_stage", "competition_stage_id", t_competition_stage))
+    print(dict_to_sql("game_match", "match_id", t_game_match))
     print(dict_to_sql("lineup_team", "lineup_team_id", t_lineup_team))
+    print(dict_to_sql("lineup_manager", "lineup_manager_id", t_lineup_manager))
     print(dict_to_sql("lineup_player", "lineup_player_id", t_lineup_player))
     print(dict_to_sql("lineup_player_position", "lineup_player_position_id", t_lineup_player_position))
     print(dict_to_sql("lineup_player_card", "lineup_player_card_id", t_lineup_player_card))
-
 
     # db = PostgresDatabase()
     # db.connect_to_database()
