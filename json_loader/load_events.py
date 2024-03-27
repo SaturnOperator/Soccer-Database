@@ -230,9 +230,11 @@ if __name__ == "__main__":
     t_player = {}
     t_manager = {}
     t_stadium = {}
+    t_competition_stage = {}
     t_competition = {}
     t_game_match = {}
     t_lineup_team = {}
+    t_lineup_manager = {}
     t_lineup_player = {}
     t_lineup_player_position = {}
     t_lineup_player_card = {}
@@ -252,6 +254,48 @@ if __name__ == "__main__":
         home_team_id = match_data['home_team']['home_team_id']
         away_team_id = match_data['away_team']['away_team_id']
 
+
+        # Get managers data and create table
+        all_managers = []
+        if 'managers' in match_data['home_team']:
+            all_managers += match_data['home_team']['managers']
+
+        if 'managers' in match_data['away_team']:
+            all_managers += match_data['away_team']['managers']
+
+        for manager in all_managers:
+            manager_row = { # TABLE:manager
+                "country_id" : manager['country']['id'],
+                "manager_name" : manager['name'],
+                "manager_nickname" : manager['nickname'],
+                "dob" : manager['dob']
+            }
+            t_manager[manager['id']] = manager_row
+
+            # Get countries data
+            country_id = manager['country']['id']
+            country_name = manager['country']['name']
+            t_country[country_id] = {"country_name" : country_name} # TABLE:country
+
+
+        # Get stadium data and create table
+        if 'stadium' in match_data:
+            stadium_row = { # TABLE:stadium
+                "stadium_name" : match_data['stadium']['name'],
+                "country_id" : match_data['stadium']['country']['id']
+            }
+            t_stadium[match_data['stadium']['id']] = stadium_row
+
+            # Redundant in case stadium's country is not prev included
+            country_id = match_data['stadium']['country']['id']
+            country_name = match_data['stadium']['country']['name']
+            t_country[country_id] = {"country_name" : country_name} # TABLE:country
+
+        # Get competition_stage data and create table
+        competition_stage_id = match_data['competition_stage']['id']
+        competition_stage_name = match_data['competition_stage']['name']
+        t_competition_stage[competition_stage_id] = {"competition_stage_name" : competition_stage_name} # TABLE:competition_stage
+
         # # Create game_match table
         # game_match_row = { # TABLE:game_match
         #     "competition_id" : ,
@@ -260,23 +304,36 @@ if __name__ == "__main__":
         # }
 
         for team in lineups[match_id]:
-
             # Get team data
             team_id = team['team_id']
             team_name = team['team_name']
             t_team[team_id] = {"team_name" : team_name} # TABLE:team
+            
+            team_home_away = 'home' if home_team_id == team_id else 'away'
 
             lineup_row = { # TABLE:lineup_team
                 "match_id" : match_id,
                 "team_id" : team_id,
+                "score" : match_data['%s_score' % team_home_away] ,
                 "home_team" : (home_team_id == team_id),
             }
             t_lineup_team_id = len(t_lineup_team) # ensures new id everytime
             check_unique_id(t_lineup_team, t_lineup_team_id) 
             t_lineup_team[t_lineup_team_id] = lineup_row
 
+            # Get Managers and create lineup_manager table
+            if 'managers' in match_data['%s_team' % team_home_away]:
+                for manager in match_data['%s_team' % team_home_away]['managers']:
+                    lineup_manager_row = { # TABLE:lineup_manager
+                        "lineup_team_id" : t_lineup_team_id,
+                        "manager_id" : manager['id']
+                    }
+                    t_lineup_manager_id = len(t_lineup_manager)
+                    check_unique_id(t_lineup_manager, t_lineup_manager_id) 
+                    t_lineup_manager[t_lineup_manager_id] = lineup_manager_row
+
             for player in team['lineup']:
-                # Get countries and players data
+                # Redundant in case player's country is not prev included
                 country_id = player['country']['id']
                 country_name = player['country']['name']
                 t_country[country_id] = {"country_name" : country_name} # TABLE:country
