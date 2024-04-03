@@ -218,8 +218,7 @@ if __name__ == "__main__":
     # get match ids from matches
     match_ids = [match['match_id'] for season in seasons for match in season]
 
-    lineups = get_lineups_from_match_ids(match_ids) # Get lineup
-    events = get_events_from_match_ids(match_ids) # Get events
+    lineups = get_lineups_from_match_ids(match_ids) # Get lineup data
 
     card_types = {
         "Yellow Card" : 0,
@@ -246,9 +245,6 @@ if __name__ == "__main__":
     t_lineup_player_position = {}
     t_lineup_player_card = {}
 
-
-    ##@@ Missing tables for: competition, match, manager, stadium
-
     t_penalty_card = {
         0 : {"card" : "Yellow Card"},
         1 : {"card" : "Second Yellow"},
@@ -256,6 +252,7 @@ if __name__ == "__main__":
         3 : {"card" : "Other",}
     }
 
+    # Loop through all the lineup data and populate the tables above
     for match_id in lineups:
         match_data = find_match_by_id(seasons, match_id)
 
@@ -429,35 +426,28 @@ if __name__ == "__main__":
                     t_lineup_player_card[t_lineup_player_card_id] = lineup_player_card_row
 
     # Convert normalized data to SQL writes
-    print(dict_to_sql("player_position", "position_id", t_player_position))
-    print(dict_to_sql("penalty_card", "card_type", t_penalty_card))
-    print(dict_to_sql("country", "country_id", t_country))
-    print(dict_to_sql("competition", "competition_id", t_competition))
-    print(dict_to_sql("season", "season_id", t_season))
-    print(dict_to_sql("team", "team_id", t_team))
-    print(dict_to_sql("player", "player_id", t_player))
-    print(dict_to_sql("manager", "manager_id", t_manager))
-    print(dict_to_sql("stadium", "stadium_id", t_stadium))
-    print(dict_to_sql("competition_stage", "competition_stage_id", t_competition_stage))
-    print(dict_to_sql("game_match", "match_id", t_game_match))
-    print(dict_to_sql("lineup_team", "lineup_team_id", t_lineup_team))
-    print(dict_to_sql("lineup_manager", "lineup_manager_id", t_lineup_manager))
-    print(dict_to_sql("lineup_player", "lineup_player_id", t_lineup_player))
-    print(dict_to_sql("lineup_player_position", "lineup_player_position_id", t_lineup_player_position))
-    print(dict_to_sql("lineup_player_card", "lineup_player_card_id", t_lineup_player_card))
+    # print(dict_to_sql("player_position", "position_id", t_player_position))
+    # print(dict_to_sql("penalty_card", "card_type", t_penalty_card))
+    # print(dict_to_sql("country", "country_id", t_country))
+    # print(dict_to_sql("competition", "competition_id", t_competition))
+    # print(dict_to_sql("season", "season_id", t_season))
+    # print(dict_to_sql("team", "team_id", t_team))
+    # print(dict_to_sql("player", "player_id", t_player))
+    # print(dict_to_sql("manager", "manager_id", t_manager))
+    # print(dict_to_sql("stadium", "stadium_id", t_stadium))
+    # print(dict_to_sql("competition_stage", "competition_stage_id", t_competition_stage))
+    # print(dict_to_sql("game_match", "match_id", t_game_match))
+    # print(dict_to_sql("lineup_team", "lineup_team_id", t_lineup_team))
+    # print(dict_to_sql("lineup_manager", "lineup_manager_id", t_lineup_manager))
+    # print(dict_to_sql("lineup_player", "lineup_player_id", t_lineup_player))
+    # print(dict_to_sql("lineup_player_position", "lineup_player_position_id", t_lineup_player_position))
+    # print(dict_to_sql("lineup_player_card", "lineup_player_card_id", t_lineup_player_card))
 
-    # db = PostgresDatabase()
-    # db.connect_to_database()
+    events = get_events_from_match_ids(match_ids[:1]) # Get events data
 
-    # table_name = 'events'
+    for event in events:
+        print(len(events[event]))
 
-    # for file in files:
-    #     filePath = os.path.join(DATA_DIR, file)
-        
-    #     write_json_to_db(filePath, db, table_name)
-
-    # if db:
-    #     db.close_connection(connection)
 
 
 

@@ -165,3 +165,87 @@ erDiagram
 	
 ```
 
+### Event Tables
+
+```mermaid
+%% Tables for events
+	erDiagram
+	event_type {
+		int event_type_id
+		string event_name
+	}
+	
+	play_pattern {
+		int play_pattern_id
+		int play_pattern_name
+	}
+	
+	event { 
+		int event_id
+		int event_type_id FK
+		int index
+		int game_period
+		str timestamp
+		int play_pattern_id
+	}
+	
+	related_event {
+		int related_event_id
+		int original_event_id
+		int related_id
+	}
+	
+	%% Event 14: Dribble
+	event_14 ["event_14: Dribble"]{
+		int event_14_id
+		int event_id FK
+		int match_id FK
+		int player_id FK
+		int team_id FK
+		boolean complete
+	}
+	
+	event_14_metadata {
+		int event_14_metadata_id
+		int event_14_id FK
+		float location_x
+		float location_y
+		float duration
+		bool under_pressure
+	}
+	
+	%% Event 16: Shot
+	event_16 ["event_16: Shot"]{
+		int event_16_id
+		int event_id FK
+		int match_id FK
+		int player_id FK
+		int team_id FK
+		float xg_score
+	}
+	
+	event_16_metadata {
+		int event_16_metadata_id
+		int event_16_id FK
+		float location_x
+		float location_y
+		float location_z
+		int technique_id FK
+		int body_part_id FK
+		int shot_type_id FK
+		int outcome_id FK
+	}
+	
+	event_type ||--|| event : "FK: event_type_id"
+	play_pattern ||--|| event : "FK: play_pattern_id"
+	event ||--|| related_event : "FK: play_pattern_id"
+	
+	event_14 ||--|| event_14_metadata : "FK: event_16_id"
+	event_16 ||--|| event_16_metadata : "FK: event_16_id"
+	
+	event ||--|| event_14 : "FK: event_id"
+	event ||--|| event_16 : "FK: event_id"
+	
+	
+```
+
