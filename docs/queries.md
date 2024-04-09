@@ -15,9 +15,9 @@
 8. In the La Liga season of 2020/2021, find the teams that made the most through balls. Sort them from highest to lowest. **Output the team names and the number of through balls.**
     - `event_30` and `pass_technique_id = 108`
 9. In the La Liga seasons of 2020/2021, 2019/2020, and 2018/2019 combined, find the players that were the most successful in completed dribbles. Sort them from highest to lowest. **Output the player names and the number of successful completed dribbles.**
-    - `event_14`
+    - `event_14` , look up `related_event` with `type = 14` and find ones where `complete = true`
 10. In the La Liga season of 2020/2021, find the players that were least dribbled past. Sort them from lowest to highest. **Output the player names and the number of dribbles.**
-    - `event_14`
+    - `event_39`
 
 
 

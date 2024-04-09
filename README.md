@@ -172,7 +172,7 @@ erDiagram
 	erDiagram
 	event_type {
 		int event_type_id
-		string event_name
+		string event_type_name
 	}
 	
 	play_pattern {
@@ -184,16 +184,26 @@ erDiagram
 		int event_id
 		int event_type_id FK
 		int index
-		int game_period
-		str timestamp
-		int play_pattern_id
+		int event_period
+		str event_timestamp
+		int play_pattern_id FK
+		int possesion
 	}
 	
 	related_event {
 		int related_event_id
 		int original_event_id
+		int original_type_id
 		int related_id
+		int related_type_id
 	}
+	
+	body_part{
+		int body_part_id
+		string body_part_name
+	}
+	
+	body_part ||--|| event_14_metadata : "FK: body_part_id"
 	
 	%% Event 14: Dribble
 	event_14 ["event_14: Dribble"]{
@@ -230,10 +240,80 @@ erDiagram
 		float location_x
 		float location_y
 		float location_z
-		int technique_id FK
+		float duration
+		int shot_technique_id FK
 		int body_part_id FK
 		int shot_type_id FK
-		int outcome_id FK
+		int shot_outcome_id FK
+	}
+	
+	shot_type {
+		int shot_type_id
+		string shot_type_name
+	}
+	
+	shot_technique {
+		int shot_technique_id
+		string shot_technique_name
+	}
+	
+	shot_outcome {
+		int shot_outcome_id
+		string shot_outcome_name
+	}
+	body_part ||--|| event_16_metadata : "FK: body_part_id"
+	shot_type ||--|| event_16 : "FK: shot_type_id"
+	shot_technique ||--|| event_16 : "FK: shot_technique_id"
+	shot_outcome ||--|| event_16 : "FK: shot_outcome_id"
+	
+	%% Event 30: Pass
+	event_30 ["event_30: Pass"]{
+		int event_30_id
+		int event_id FK
+		int match_id FK
+		int player_id FK
+		int team_id FK
+		int recipient_id FK
+		int pass_type_id FK
+	}
+	
+	event_30_metadata {
+		int event_30_metadata_id
+		int event_30_id FK
+		float start_location_x
+		float start_location_y
+		float end_location_x
+		float end_location_y
+		int body_part_id FK
+		float pass_length
+		float pass_angle
+		float duration
+	}
+	
+	pass_type {
+		int pass_type_id
+		string pass_type_name
+	}
+	
+	body_part ||--|| event_30_metadata : "FK: body_part_id"
+	pass_type ||--|| event_30 : "FK: pass_type_id"
+	
+	%% Event 39: Dribbled Past
+	event_39 ["event_39: Dribbled Past"]{
+		int event_39_id
+		int event_id FK
+		int match_id FK
+		int player_id FK
+		int team_id FK
+		int event_14_id FK
+	}
+	
+	event_39_metadata {
+		int event_39_metadata_id
+		int event_39_id FK
+		float location_x
+		float location_y
+		float duration
 	}
 	
 	event_type ||--|| event : "FK: event_type_id"
@@ -242,9 +322,18 @@ erDiagram
 	
 	event_14 ||--|| event_14_metadata : "FK: event_16_id"
 	event_16 ||--|| event_16_metadata : "FK: event_16_id"
+	event_30 ||--|| event_30_metadata : "FK: event_30_id"
+	event_39 ||--|| event_39_metadata : "FK: event_39_id"
+
+	%%event_14 ||--|| event_39 : "FK: event_id"
 	
+
 	event ||--|| event_14 : "FK: event_id"
 	event ||--|| event_16 : "FK: event_id"
+	event ||--|| event_30 : "FK: event_id"
+	event ||--|| event_39 : "FK: event_id"
+	
+	
 	
 	
 ```
