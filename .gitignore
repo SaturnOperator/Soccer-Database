@@ -10,3 +10,5 @@ test/
 misc/.DS_Store
 docs/.DS_Store
 json_loader/.DS_Store
+
+json_loader/out/*
