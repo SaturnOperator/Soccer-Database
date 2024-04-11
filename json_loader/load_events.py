@@ -427,7 +427,7 @@ if __name__ == "__main__":
                     t_lineup_player_card[t_lineup_player_card_id] = lineup_player_card_row
 
 
-    # events = get_events_from_match_ids(match_ids[:2]) # Get events data, reduce to smaller subset for testing
+    # events = get_events_from_match_ids(match_ids[:4]) # Get events data, reduce to smaller subset for testing
     events = get_events_from_match_ids(match_ids) # Get events data
 
     # General tables for event data
@@ -526,7 +526,8 @@ if __name__ == "__main__":
                     'match_id' : m_id,
                     'player_id' : event['player']['id'],
                     'team_id' : event['team']['id'],
-                    'xg_score' : event['shot']['statsbomb_xg']
+                    'xg_score' : event['shot']['statsbomb_xg'],
+                    'first_time' : 'first_time' in event['shot'] and event['shot']['first_time'] == True
                 }
                 t_event_16_id = len(t_event_16)
                 check_unique_id(t_event_16, t_event_16_id) 
@@ -534,13 +535,29 @@ if __name__ == "__main__":
 
             elif e_type == 30: # Populate event_30 table for pass event
 
-                # Get different pass types / pass errors
-                if 'type' in event['pass']:
-                    p_type = event['pass']['type']['id']
-                    t_pass_type[p_type] = {'pass_type_name' : event['pass']['type']['name']}
-                elif 'outcome' in event['pass']:
-                    p_type = event['pass']['outcome']['id']
-                    t_pass_type[p_type] = {'pass_type_name' : event['pass']['outcome']['name']} # TABLE:pass_type
+                # Get pass type, this field doesn't always exist so it'll be filled later
+                # p_type = None
+                # if 'type' in event['pass']:
+                #     p_type = event['pass']['type']['id']
+                #     t_pass_type[p_type] = {'pass_type_name' : event['pass']['type']['name']} # TABLE:pass_type
+
+                # # Consolidates pass type, pass tequnique, corner shots and + into one attribute 
+                # if p_type is None and 'technique' in event['pass']: # Through-ball and other
+                #     p_type = event['pass']['technique']['id']
+                #     t_pass_type[p_type] = {'pass_type_name' : event['pass']['technique']['name']}
+                # elif p_type == 61 and'technique' in event['pass']: # Corner pass type
+                #     p_type = event['pass']['technique']['id']
+                #     t_pass_type[p_type] = {'pass_type_name' : "Corner " + event['pass']['technique']['name']}
+                # elif p_type is None and 'outcome' in event['pass']:
+                #     p_type = event['pass']['outcome']['id']
+                #     t_pass_type[p_type] = {'pass_type_name' : event['pass']['outcome']['name']} # TABLE:pass_type
+                # elif p_type is None: # Handle no pass type
+                #     p_type = 0
+                #     t_pass_type[p_type] = {'pass_type_name' : "None"} # TABLE:pass_type
+
+                through_ball =  False
+                if('through_ball' in event['pass']):
+                    through_ball = event['pass']['through_ball']
 
                 # Get recipient if there is one
                 recipient = None
@@ -553,51 +570,59 @@ if __name__ == "__main__":
                     'player_id' : event['player']['id'],
                     'team_id' : event['team']['id'],
                     'recipient_id' : recipient,
-                    'pass_type_id' : p_type
+                    'through_ball' : through_ball
+                    # 'pass_type_id' : p_type
                 }
                 t_event_30_id = len(t_event_30)
                 check_unique_id(t_event_30, t_event_30_id) 
                 t_event_30[t_event_30_id] = event_30_row
 
-            elif e_type == 39:
+            elif e_type == 39: # Populate event_39 for Dribbled Past event
                 event_14_id = None
                 if 'related_events' in event:
                     for i in event['related_events']:
                         if event_id_type[event_uuid_to_int_id[i]] == 14:
-                            event_14_id = event_uuid_to_int_id[i]
-                            break
+                            event_general_id = event_uuid_to_int_id[i] # Convert UUID to general event ID
 
                 event_39_row = { # TABLE:event_39
                     'event_id' : e_id,
                     'match_id' : m_id,
                     'player_id' : event['player']['id'],
                     'team_id' : event['team']['id'],
-                    'event_14_id' : event_14_id,
+                    'event_14_id' : event_general_id, # Convert event_id to event_14_id later
+                    'completed_dribble' : None # Look this up later in the related event_14 data
                 }
                 t_event_39_id = len(t_event_39)
                 check_unique_id(t_event_39, t_event_39_id) 
                 t_event_39[t_event_39_id] = event_39_row
 
+    # Update event_39 (Dribbled Past events) with relevant info from event_14 (Dribble)
+    for e39_id in t_event_39:
+        for e14_id in t_event_14:
+            if t_event_39[e39_id]['event_14_id'] == t_event_14[e14_id]['event_id']:
+                t_event_39[e39_id]['event_14_id'] = e14_id # Find and replace the event_id with it's event_14_id
+                t_event_39[e39_id]['completed_dribble'] = t_event_14[e14_id]['complete']
+
     # Convert normalized data to SQL writes
 
     # Player, Team and Match Data
-    # print(dict_to_sql("player_position", "position_id", t_player_position))
-    # print(dict_to_sql("penalty_card", "card_type", t_penalty_card))
-    # print(dict_to_sql("country", "country_id", t_country))
-    # print(dict_to_sql("competition", "competition_id", t_competition))
-    # print(dict_to_sql("season", "season_id", t_season))
-    # print(dict_to_sql("team", "team_id", t_team))
-    # print(dict_to_sql("player", "player_id", t_player))
-    # print(dict_to_sql("manager", "manager_id", t_manager))
-    # print(dict_to_sql("stadium", "stadium_id", t_stadium))
-    # print(dict_to_sql("competition_stage", "competition_stage_id", t_competition_stage))
-    # print(dict_to_sql("game_match", "match_id", t_game_match))
-    # print(dict_to_sql("lineup_team", "lineup_team_id", t_lineup_team))
-    # print(dict_to_sql("lineup_manager", "lineup_manager_id", t_lineup_manager))
-    # print(dict_to_sql("lineup_player", "lineup_player_id", t_lineup_player))
-    # print(dict_to_sql("lineup_player_position", "lineup_player_position_id", t_lineup_player_position))
-    # print(dict_to_sql("lineup_player_card", "lineup_player_card_id", t_lineup_player_card))
-    
+    print(dict_to_sql("player_position", "position_id", t_player_position))
+    print(dict_to_sql("penalty_card", "card_type", t_penalty_card))
+    print(dict_to_sql("country", "country_id", t_country))
+    print(dict_to_sql("competition", "competition_id", t_competition))
+    print(dict_to_sql("season", "season_id", t_season))
+    print(dict_to_sql("team", "team_id", t_team))
+    print(dict_to_sql("player", "player_id", t_player))
+    print(dict_to_sql("manager", "manager_id", t_manager))
+    print(dict_to_sql("stadium", "stadium_id", t_stadium))
+    print(dict_to_sql("competition_stage", "competition_stage_id", t_competition_stage))
+    print(dict_to_sql("game_match", "match_id", t_game_match))
+    print(dict_to_sql("lineup_team", "lineup_team_id", t_lineup_team))
+    print(dict_to_sql("lineup_manager", "lineup_manager_id", t_lineup_manager))
+    print(dict_to_sql("lineup_player", "lineup_player_id", t_lineup_player))
+    print(dict_to_sql("lineup_player_position", "lineup_player_position_id", t_lineup_player_position))
+    print(dict_to_sql("lineup_player_card", "lineup_player_card_id", t_lineup_player_card))
+
     # Event Data 
     print(dict_to_sql("event_type", "event_type_id", t_event_type))
     print(dict_to_sql("play_pattern", "play_pattern_id", t_play_pattern))

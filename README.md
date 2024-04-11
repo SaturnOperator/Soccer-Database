@@ -232,6 +232,7 @@ erDiagram
 		int player_id FK
 		int team_id FK
 		float xg_score
+		bool first
 	}
 	
 	event_16_metadata {
@@ -274,7 +275,7 @@ erDiagram
 		int player_id FK
 		int team_id FK
 		int recipient_id FK
-		int pass_type_id FK
+		bool through_ball
 	}
 	
 	event_30_metadata {
@@ -288,6 +289,7 @@ erDiagram
 		float pass_length
 		float pass_angle
 		float duration
+		int pass_type_id FK
 	}
 	
 	pass_type {
