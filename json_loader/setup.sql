@@ -186,3 +186,12 @@ CREATE TABLE event_39 (
     event_14_id INTEGER REFERENCES event_14(event_14_id),
     completed_dribble BOOLEAN NOT NULL
 );
+
+-- Slightly optimizes Q1
+CREATE INDEX event_16_first_time_idx ON event_16(first_time bool_ops);
+CREATE INDEX event_16_match_id_idx ON event_16(match_id int4_ops);
+CREATE INDEX event_16_player_id_idx ON event_16(player_id int4_ops);
+
+-- Significantly optmizes Q7 & Q8
+CREATE INDEX event_30_through_ball_idx ON event_30(through_ball bool_ops);
+
