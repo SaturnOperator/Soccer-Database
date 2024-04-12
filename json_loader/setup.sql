@@ -187,11 +187,42 @@ CREATE TABLE event_39 (
     completed_dribble BOOLEAN NOT NULL
 );
 
--- Slightly optimizes Q1
-CREATE INDEX event_16_first_time_idx ON event_16(first_time bool_ops);
-CREATE INDEX event_16_match_id_idx ON event_16(match_id int4_ops);
-CREATE INDEX event_16_player_id_idx ON event_16(player_id int4_ops);
+-- Indexes for optimizing
+CREATE INDEX q1_q2_index ON event_16(match_id int4_ops,player_id int4_ops);
+CREATE INDEX q3_index ON event_16(first_time bool_ops,match_id int4_ops,player_id int4_ops);
+CREATE INDEX q4_index ON event_30(match_id int4_ops,team_id int4_ops);
+CREATE INDEX q5_index ON event_30(match_id int4_ops,recipient_id int4_ops);
+CREATE INDEX q6_index ON event_16(match_id int4_ops,team_id int4_ops);
+CREATE INDEX q7_index ON event_30(through_ball bool_ops,match_id int4_ops,player_id int4_ops);
+CREATE INDEX q8_index ON event_30(through_ball bool_ops,match_id int4_ops,team_id int4_ops);
+CREATE INDEX q9_index ON event_14(complete bool_ops,match_id int4_ops,player_id int4_ops);
+CREATE INDEX q10_index ON event_39(match_id int4_ops,player_id int4_ops);
 
--- Significantly optmizes Q7 & Q8
-CREATE INDEX event_30_through_ball_idx ON event_30(through_ball bool_ops);
+-- Experimental
+/*
+ALTER TABLE event_16 ADD COLUMN season_id INTEGER;
+UPDATE event_16 e16 SET season_id = gm.season_id FROM game_match gm WHERE e16.match_id = gm.match_id;
+CREATE INDEX ON event_16(season_id);
 
+ALTER TABLE event_30 ADD COLUMN season_id INTEGER;
+UPDATE event_30 e30 SET season_id = gm.season_id FROM game_match gm WHERE e30.match_id = gm.match_id;
+CREATE INDEX ON event_30(season_id);
+
+ALTER TABLE event_14 ADD COLUMN season_id INTEGER;
+UPDATE event_14 e14 SET season_id = gm.season_id FROM game_match gm WHERE e14.match_id = gm.match_id;
+CREATE INDEX ON event_14(season_id);
+
+ALTER TABLE event_39 ADD COLUMN season_id INTEGER;
+UPDATE event_39 e39 SET season_id = gm.season_id FROM game_match gm WHERE e39.match_id = gm.match_id;
+CREATE INDEX ON event_39(season_id);
+
+CREATE INDEX q1_q2_index ON event_16(season_id int4_ops,player_id int4_ops);
+CREATE INDEX q3_index ON event_16(first_time bool_ops,season_id int4_ops,player_id int4_ops);
+CREATE INDEX q4_index ON event_30(season_id int4_ops,team_id int4_ops);
+CREATE INDEX q5_index ON event_30(season_id int4_ops,recipient_id int4_ops);
+CREATE INDEX q6_index ON event_16(season_id int4_ops,team_id int4_ops);
+CREATE INDEX q7_index ON event_30(through_ball bool_ops,season_id int4_ops,player_id int4_ops);
+CREATE INDEX q8_index ON event_30(through_ball bool_ops,season_id int4_ops,team_id int4_ops);
+CREATE INDEX q9_index ON event_14(complete bool_ops,season_id int4_ops,player_id int4_ops);
+CREATE INDEX q10_index ON event_39(season_id int4_ops,player_id int4_ops);
+*/
