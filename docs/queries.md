@@ -11,7 +11,7 @@
 6. In the Premier League season of 2003/2004, find the teams with the most shots made. Sort them from highest to lowest. **Output the team names and the number of shots.**
     - `event_16`
 7. In the La Liga season of 2020/2021, find the players who made the most through balls. Sort them from highest to lowest. **Output the player names and the number of through balls.**
-    - `event_30` and `pass_technique_id = 108`
+    - `event_30` and `through_ball = true`
 8. In the La Liga season of 2020/2021, find the teams that made the most through balls. Sort them from highest to lowest. **Output the team names and the number of through balls.**
     - `event_30` and `pass_technique_id = 108`
 9. In the La Liga seasons of 2020/2021, 2019/2020, and 2018/2019 combined, find the players that were the most successful in completed dribbles. Sort them from highest to lowest. **Output the player names and the number of successful completed dribbles.**
