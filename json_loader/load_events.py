@@ -369,8 +369,8 @@ if __name__ == "__main__":
                     t_lineup_player_card[t_lineup_player_card_id] = lineup_player_card_row
 
 
-    events = get_events_from_match_ids(match_ids[:4]) # Get events data, reduce to smaller subset for testing
-    # events = get_events_from_match_ids(match_ids) # Get events data
+    # events = get_events_from_match_ids(match_ids[:4]) # Get events data, reduce to smaller subset for testing
+    events = get_events_from_match_ids(match_ids) # Get events data
 
     # General tables for event data
     t_event = {}
@@ -1029,8 +1029,6 @@ if __name__ == "__main__":
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
                     'team_id' : event['team']['id'], # int (team FK)
-                    'location_x' : event['location'][0], # float
-                    'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
                 }
                 t_event_26_id = len(t_event_26)
@@ -1043,8 +1041,6 @@ if __name__ == "__main__":
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
                     'team_id' : event['team']['id'], # int (team FK)
-                    'location_x' : event['location'][0], # float
-                    'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
                 }
                 t_event_27_id = len(t_event_27)

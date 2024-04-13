@@ -558,8 +558,6 @@ CREATE TABLE event_26 (
     match_id INTEGER REFERENCES game_match(match_id),
     player_id INTEGER REFERENCES player(player_id),
     team_id INTEGER REFERENCES team(team_id),
-    location_x FLOAT,
-    location_y FLOAT,
     duration FLOAT
 );
 
@@ -570,8 +568,6 @@ CREATE TABLE event_27 (
     match_id INTEGER REFERENCES game_match(match_id),
     player_id INTEGER REFERENCES player(player_id),
     team_id INTEGER REFERENCES team(team_id),
-    location_x FLOAT,
-    location_y FLOAT,
     duration FLOAT
 );
 
