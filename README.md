@@ -35,12 +35,11 @@ The event table design is broken into 3 aspects, there is one main table `event`
 
 ```mermaid
 erDiagram
-		game_match ||--o{ event : "FK :match_id"
+
 		event }o--o{ related_event : "FK: event_id"
     event ||--o{ event_14 : "FK: event_id"
     event_14 ||--|| event_14_metadata : "event_14_id"
-    event ||--o{ event_19 : "FK: event_id"
-    event ||--o{ event_20 : "FK: event_id"
+    game_match ||--o{ event_14 : "FK :match_id"
 		
 ```
 
