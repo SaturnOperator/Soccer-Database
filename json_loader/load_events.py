@@ -490,6 +490,11 @@ if __name__ == "__main__":
     t_event_42 = {} # Ball Receipt*
     t_event_43 = {} # Carry
 
+    # Other tables
+    t_outcome = {}
+    t_duel_type = {}
+    t_foul_type = {}
+
     # Convert the event UUID IDs into ints, this should make look up faster and make the ID have smaller footprint 
     # This also needs to be done first so that UUID's can be converted for an event's related_events
     event_uuid_to_int_id = {} # Translates the UUID event_id to an int
@@ -574,20 +579,6 @@ if __name__ == "__main__":
                 #     p_type = event['pass']['type']['id']
                 #     t_pass_type[p_type] = {'pass_type_name' : event['pass']['type']['name']} # TABLE:pass_type
 
-                # # Consolidates pass type, pass tequnique, corner shots and + into one attribute 
-                # if p_type is None and 'technique' in event['pass']: # Through-ball and other
-                #     p_type = event['pass']['technique']['id']
-                #     t_pass_type[p_type] = {'pass_type_name' : event['pass']['technique']['name']}
-                # elif p_type == 61 and'technique' in event['pass']: # Corner pass type
-                #     p_type = event['pass']['technique']['id']
-                #     t_pass_type[p_type] = {'pass_type_name' : "Corner " + event['pass']['technique']['name']}
-                # elif p_type is None and 'outcome' in event['pass']:
-                #     p_type = event['pass']['outcome']['id']
-                #     t_pass_type[p_type] = {'pass_type_name' : event['pass']['outcome']['name']} # TABLE:pass_type
-                # elif p_type is None: # Handle no pass type
-                #     p_type = 0
-                #     t_pass_type[p_type] = {'pass_type_name' : "None"} # TABLE:pass_type
-
                 through_ball =  False
                 if('through_ball' in event['pass']):
                     through_ball = event['pass']['through_ball']
@@ -630,6 +621,535 @@ if __name__ == "__main__":
                 t_event_39[t_event_39_id] = event_39_row
 
             # Start making tables for the other event types
+            elif e_type == 2: # Ball Recovery
+                event_02_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_02_id = len(t_event_02)
+                check_unique_id(t_event_02, t_event_02_id) 
+                t_event_02[t_event_02_id] = event_02_row
+
+            elif e_type == 3: # Dispossessed
+                event_03_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_03_id = len(t_event_03)
+                check_unique_id(t_event_03, t_event_03_id) 
+                t_event_03[t_event_03_id] = event_03_row
+
+            elif e_type == 4: # Duel
+                #@@
+                duel_id = event['duel']['type']['id']
+                t_duel_type[duel_id] = {'duel_type_name' : event['duel']['type']['name']} # TABLE:duel_type
+                
+                outcome_id = None
+                if 'outcome' in event['duel']:
+                    outcome_id = event['duel']['outcome']['id']
+                    t_outcome[outcome_id] = {'outcome_name' : event['duel']['outcome']['name']} # TABLE:outcome
+
+
+                event_04_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'duel_type_id' : duel_id, # int (duel_type FK)
+                    'outocme_id' : outcome_id, # int, can be null (outcome FK)
+                }
+                t_event_04_id = len(t_event_04)
+                check_unique_id(t_event_04, t_event_04_id) 
+                t_event_04[t_event_04_id] = event_04_row
+
+            elif e_type == 5: # Camera On
+                event_05_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                }
+                t_event_05_id = len(t_event_05)
+                check_unique_id(t_event_05, t_event_05_id) 
+                t_event_05[t_event_05_id] = event_05_row
+
+            elif e_type == 6: # Block
+                deflection = False
+                offensive = False
+                save_block = False
+
+                if 'block' in event:
+                    if 'deflection' in event['block']:
+                        deflection = event['block']['deflection']
+                    if 'offensive' in event['block']:
+                        offensive = event['block']['offensive']
+                    if 'save_block' in event['block']:
+                        save_block = event['block']['save_block']
+
+                event_06_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'deflection' : deflection, # bool
+                    'offensive' : offensive, # bool
+                    'save_block' : save_block, # bool
+                }
+                t_event_06_id = len(t_event_06)
+                check_unique_id(t_event_06, t_event_06_id) 
+                t_event_06[t_event_06_id] = event_06_row
+
+            elif e_type == 8: # Offside
+                event_08_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_08_id = len(t_event_08)
+                check_unique_id(t_event_08, t_event_08_id) 
+                t_event_08[t_event_08_id] = event_08_row
+
+            elif e_type == 9: # Clearance
+                bp_id = event['clearance']['body_part']['id']
+                t_body_part[bp_id] = {'body_part_name' : event['clearance']['body_part']['name']} # TABLE:body_part
+
+                event_09_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'aerial_won' : 'aerial_won' in event['clearance'] and event['clearance']['aerial_won'], # bool
+                    'body_part_id' : bp_id, # int (body_part FK)
+                }
+                t_event_09_id = len(t_event_09)
+                check_unique_id(t_event_09, t_event_09_id) 
+                t_event_09[t_event_09_id] = event_09_row
+
+            elif e_type == 10: # Interception
+                outcome_id = event['interception']['outcome']['id']
+                t_outcome[outcome_id] = {'outcome_name' : event['interception']['outcome']['name']} # TABLE:outcome
+
+                event_10_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'outcome_id' : outcome_id, # int (outcome FK)
+                }
+                t_event_10_id = len(t_event_10)
+                check_unique_id(t_event_10, t_event_10_id) 
+                t_event_10[t_event_10_id] = event_10_row
+
+            elif e_type == 17: # Pressure
+                event_17_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'counterpress' : 'counterpress' in event and event['counterpress'] , # bool
+                }
+                t_event_17_id = len(t_event_17)
+                check_unique_id(t_event_17, t_event_17_id) 
+                t_event_17[t_event_17_id] = event_17_row
+
+            elif e_type == 18: # Half Start
+                event_18_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'duration' : event['duration'], # float
+                    'late_video_start' : 'half_start' in event and event['half_start']['late_video_start'], # bool
+                }
+                t_event_18_id = len(t_event_18)
+                check_unique_id(t_event_18, t_event_18_id) 
+                t_event_18[t_event_18_id] = event_18_row
+
+            elif e_type == 19: # Substitution
+                outcome_id = event['substitution']['outcome']['id']
+                t_outcome[outcome_id] = {'outcome_name' : event['substitution']['outcome']['name']} # TABLE:outcome
+
+                event_19_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'duration' : event['duration'], # float
+                    'outcome_id' : outcome_id, # int (outcome FK)
+                    'replacement_id' : event['substitution']['replacement']['id'], # int, (player FK)
+                }
+                t_event_19_id = len(t_event_19)
+                check_unique_id(t_event_19, t_event_19_id) 
+                t_event_19[t_event_19_id] = event_19_row
+
+            elif e_type == 20: # Own Goal Against
+                event_20_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_20_id = len(t_event_20)
+                check_unique_id(t_event_20, t_event_20_id) 
+                t_event_20[t_event_20_id] = event_20_row
+
+            elif e_type == 21: # Foul Won
+                penalty = False
+                defensive = False
+                advantage = False
+
+                if 'foul_won' in event:
+                    if 'penalty' in event['foul_won']:
+                        penalty = event['foul_won']['penalty']
+                    if 'defensive' in event['foul_won']:
+                        defensive = event['foul_won']['defensive']
+                    if 'advantage' in event['foul_won']:
+                        advantage = event['foul_won']['advantage']
+
+                event_21_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'penalty' : penalty, # bool
+                    'defensive' : defensive, # bool
+                    'advantage' : advantage, # bool
+                }
+                t_event_21_id = len(t_event_21)
+                check_unique_id(t_event_21, t_event_21_id) 
+                t_event_21[t_event_21_id] = event_21_row
+
+            elif e_type == 22: # Foul Committed
+                penalty = False
+                advantage = False
+                offensive = False
+                card = None
+                foul_id = None
+
+                if 'foul_committed' in event:
+                    card = None
+                    if 'card' in event['foul_committed']:
+                        card = event['foul_committed']['card']['id']
+
+                    foul_id = None
+                    if 'type' in event['foul_committed']:
+                        #@@
+                        foul_id = event['foul_committed']['type']['id']
+                        t_foul_type[foul_id] = {'foul_type_name' : event['foul_committed']['type']['name']} # TABLE:foul_type
+
+                event_22_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'penalty' : penalty, # bool
+                    'advantage' : advantage, # bool
+                    'offensive' : offensive, # bool
+                    'penalty_card_id' : card, # int, can be null (penalty_card FK)
+                    'foul_id' : foul_id, # int, can be null (foul_type FK)
+                }
+                t_event_22_id = len(t_event_22)
+                check_unique_id(t_event_22, t_event_22_id) 
+                t_event_22[t_event_22_id] = event_22_row
+
+            elif e_type == 23: # Goal Keeper #@@
+                event_23_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_23_id = len(t_event_23)
+                check_unique_id(t_event_23, t_event_23_id) 
+                t_event_23[t_event_23_id] = event_23_row
+
+            elif e_type == 24: # Bad Behaviour
+                event_24_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'duration' : event['duration'], # float
+                    'penalty_card_id' : event['bad_behaviour']['card']['id']
+                }
+                t_event_24_id = len(t_event_24)
+                check_unique_id(t_event_24, t_event_24_id) 
+                t_event_24[t_event_24_id] = event_24_row
+
+            elif e_type == 25: # Own Goal For
+
+                player_id = None
+                if 'player' in event:
+                    player_id = event['player']['id']
+
+                event_25_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : player_id, # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_25_id = len(t_event_25)
+                check_unique_id(t_event_25, t_event_25_id) 
+                t_event_25[t_event_25_id] = event_25_row
+
+            elif e_type == 26: # Player On
+                event_26_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_26_id = len(t_event_26)
+                check_unique_id(t_event_26, t_event_26_id) 
+                t_event_26[t_event_26_id] = event_26_row
+
+            elif e_type == 27: # Player Off
+                event_27_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_27_id = len(t_event_27)
+                check_unique_id(t_event_27, t_event_27_id) 
+                t_event_27[t_event_27_id] = event_27_row
+
+            elif e_type == 28: # Shield
+                event_28_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_28_id = len(t_event_28)
+                check_unique_id(t_event_28, t_event_28_id) 
+                t_event_28[t_event_28_id] = event_28_row
+
+            elif e_type == 29: # Camera off
+                event_29_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_29_id = len(t_event_29)
+                check_unique_id(t_event_29, t_event_29_id) 
+                t_event_29[t_event_29_id] = event_29_row
+
+            elif e_type == 33: # 50/50
+                outcome_id = None
+                if 'outcome' in event['50_50']:
+                    outcome_id = event['50_50']['outcome']['id']
+                    t_outcome[outcome_id] = {'outcome_name' : event['50_50']['outcome']['name']} # TABLE:outcome
+
+                event_33_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float,
+                    'outcome' : outcome_id, # int (outcome FK)
+                }
+                t_event_33_id = len(t_event_33)
+                check_unique_id(t_event_33, t_event_33_id) 
+                t_event_33[t_event_33_id] = event_33_row
+
+            elif e_type == 34: # Half End
+                event_34_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'team_id' : event['team']['id'], # int
+                    'duration' : event['duration'], # float
+                }
+                t_event_34_id = len(t_event_34)
+                check_unique_id(t_event_34, t_event_34_id) 
+                t_event_34[t_event_34_id] = event_34_row
+
+            elif e_type == 35: # Starting XI #@@
+                event_35_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'team_id' : event['team']['id'], # int
+                    'duration' : event['duration'], # float
+                }
+                t_event_35_id = len(t_event_35)
+                check_unique_id(t_event_35, t_event_35_id) 
+                t_event_35[t_event_35_id] = event_35_row
+
+            elif e_type == 36: # Tactical Shift #@@
+                event_36_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'team_id' : event['team']['id'], # int
+                    'duration' : event['duration'], # float
+                }
+                t_event_36_id = len(t_event_36)
+                check_unique_id(t_event_36, t_event_36_id) 
+                t_event_36[t_event_36_id] = event_36_row
+
+            elif e_type == 37: # Error
+                event_37_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_37_id = len(t_event_37)
+                check_unique_id(t_event_37, t_event_37_id) 
+                t_event_37[t_event_37_id] = event_37_row
+
+            elif e_type == 38: # Miscontrol
+                aerial_won = False
+                if 'miscontrol' in event:
+                    aerial_won = event['miscontrol']['aerial_won']
+
+                event_38_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'aerial_won' : aerial_won, # bool
+                }
+                t_event_38_id = len(t_event_38)
+                check_unique_id(t_event_38, t_event_38_id) 
+                t_event_38[t_event_38_id] = event_38_row
+
+            elif e_type == 40: # Injury Stoppage
+                in_chain = False
+                if 'injury_stoppage' in event:
+                    in_chain = event['injury_stoppage']['in_chain']
+
+                loc_x = None
+                loc_y = None
+                if 'location' in event:
+                    loc_x = event['location'][0]
+                    loc_y = event['location'][1]
+
+                event_40_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : loc_x, # float
+                    'location_y' : loc_y, # float
+                    'duration' : event['duration'], # float
+                    'in_chain' : in_chain, #bool
+                }
+                t_event_40_id = len(t_event_40)
+                check_unique_id(t_event_40, t_event_40_id) 
+                t_event_40[t_event_40_id] = event_40_row
+
+            elif e_type == 41: # Referee Ball-Drop
+                event_41_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_41_id = len(t_event_41)
+                check_unique_id(t_event_41, t_event_41_id) 
+                t_event_41[t_event_41_id] = event_41_row
+
+            elif e_type == 42: # Ball Receipt*
+                outcome_id = None
+                if 'ball_receipt' in event:
+                    outcome_id = event['ball_receipt']['outcome']['id']
+                    t_outcome[outcome_id] = {'outcome_name' : event['ball_receipt']['outcome']['name']} # TABLE:outcome
+
+
+                event_42_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'outcome_id' : outcome_id, # int (outcome FK)
+                }
+                t_event_42_id = len(t_event_42)
+                check_unique_id(t_event_42, t_event_42_id) 
+                t_event_42[t_event_42_id] = event_42_row
+
+            elif e_type == 43: # Carry
+                event_43_row = {
+                    'event_id' : e_id, # int (event FK)
+                    'match_id' : m_id, # int (game_match FK)
+                    'player_id' : event['player']['id'], # int (player FK)
+                    'team_id' : event['team']['id'], # int
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'end_location_x' : event['carry']['end_location'][0], # float
+                    'end_location_y' : event['carry']['end_location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_43_id = len(t_event_43)
+                check_unique_id(t_event_43, t_event_43_id) 
+                t_event_43[t_event_43_id] = event_43_row
+
 
     # Update event_39 (Dribbled Past events) with relevant info from event_14 (Dribble)
     for e39_id in t_event_39:
