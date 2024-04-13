@@ -246,10 +246,10 @@ if __name__ == "__main__":
     t_lineup_player_card = {}
 
     t_penalty_card = {
-        0 : {"card" : "Yellow Card"},
-        1 : {"card" : "Second Yellow"},
-        2 : {"card" : "Red Card"},
-        3 : {"card" : "Other",}
+        5 : {"card" : "Red Card"},
+        6 : {"card" : "Second Yellow"},
+        7 : {"card" : "Yellow Card"},
+        0 : {"card" : "Other"}
     }
 
     # Loop through all the lineup data and populate the tables above
@@ -427,8 +427,8 @@ if __name__ == "__main__":
                     t_lineup_player_card[t_lineup_player_card_id] = lineup_player_card_row
 
 
-    # events = get_events_from_match_ids(match_ids[:4]) # Get events data, reduce to smaller subset for testing
-    events = get_events_from_match_ids(match_ids) # Get events data
+    events = get_events_from_match_ids(match_ids[:4]) # Get events data, reduce to smaller subset for testing
+    # events = get_events_from_match_ids(match_ids) # Get events data
 
     # General tables for event data
     t_event = {}
@@ -456,6 +456,39 @@ if __name__ == "__main__":
     # Dribbled Past event data
     t_event_39 = {}
     t_event_39_metadata = {}
+
+    # Rest of events
+    t_event_02 = {} # Ball Recovery
+    t_event_03 = {} # Dispossessed
+    t_event_04 = {} # Duel
+    t_event_05 = {} # Camera
+    t_event_06 = {} # Block
+    t_event_08 = {} # Offside
+    t_event_09 = {} # Clearance
+    t_event_10 = {} # Interception
+    t_event_17 = {} # Pressure
+    t_event_18 = {} # Half Start
+    t_event_19 = {} # Substitution
+    t_event_20 = {} # Own Goal Against
+    t_event_21 = {} # Foul Won
+    t_event_22 = {} # Foul Committed
+    t_event_23 = {} # Goal Keeper
+    t_event_24 = {} # Bad Behaviour
+    t_event_25 = {} # Own Goal For
+    t_event_26 = {} # Player On
+    t_event_27 = {} # Player Off
+    t_event_28 = {} # Shield
+    t_event_29 = {} # Camera off
+    t_event_33 = {} # 50/50
+    t_event_34 = {} # Half End
+    t_event_35 = {} # Starting XI
+    t_event_36 = {} # Tactical Shift
+    t_event_37 = {} # Error
+    t_event_38 = {} # Miscontrol
+    t_event_40 = {} # Injury Stoppage
+    t_event_41 = {} # Referee Ball-Drop
+    t_event_42 = {} # Ball Receipt*
+    t_event_43 = {} # Carry
 
     # Convert the event UUID IDs into ints, this should make look up faster and make the ID have smaller footprint 
     # This also needs to be done first so that UUID's can be converted for an event's related_events
@@ -595,6 +628,8 @@ if __name__ == "__main__":
                 t_event_39_id = len(t_event_39)
                 check_unique_id(t_event_39, t_event_39_id) 
                 t_event_39[t_event_39_id] = event_39_row
+
+            # Start making tables for the other event types
 
     # Update event_39 (Dribbled Past events) with relevant info from event_14 (Dribble)
     for e39_id in t_event_39:
