@@ -391,12 +391,12 @@ if __name__ == "__main__":
     t_event_16_metadata = {}
     t_shot_type = {}
     t_shot_technique = {}
-    t_shot_outcome = {}
 
     # Pass event data
     t_event_30 = {}
     t_event_30_metadata = {}
     t_pass_type = {}
+    t_pass_technique = {}
     
     # Dribbled Past event data
     t_event_39 = {}
@@ -498,6 +498,16 @@ if __name__ == "__main__":
                 check_unique_id(t_event_14, t_event_14_id) 
                 t_event_14[t_event_14_id] = event_14_row
 
+                event_14_metadata_row = {
+                    'event_14_id' : t_event_14_id, # int (event_14 FK)
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_14_metadata_id = len(t_event_14_metadata)
+                check_unique_id(t_event_14_metadata, t_event_14_metadata_id) 
+                t_event_14_metadata[t_event_14_metadata_id] = event_14_metadata_row
+
             elif e_type == 16: # Populate event_16 table for shot event
                 event_16_row = { # TABLE:event_16
                     'event_id' : e_id,
@@ -510,6 +520,57 @@ if __name__ == "__main__":
                 t_event_16_id = len(t_event_16)
                 check_unique_id(t_event_16, t_event_16_id) 
                 t_event_16[t_event_16_id] = event_16_row
+
+                shot_id = event['shot']['type']['id']
+                t_shot_type[shot_id] = {'shot_type_name' : event['shot']['type']['name']} # TABLE:shot_type
+                
+                outcome_id = event['shot']['outcome']['id']
+                t_outcome[outcome_id] = {'outcome_name' : event['shot']['outcome']['name']} # TABLE:outcome
+
+                technique_id = event['shot']['technique']['id']
+                t_shot_technique[technique_id] = {'shot_technique_name' : event['shot']['technique']['name']} # TABLE:outcome
+
+                bp_id = event['shot']['body_part']['id']
+                t_body_part[bp_id] = {'body_part_name' : event['shot']['body_part']['name']} # TABLE:body_part
+
+                loc_x = None
+                loc_y = None
+                if 'end_location' in event['shot']:
+                    loc_x = event['shot']['end_location'][0]
+                    loc_y = event['shot']['end_location'][1]
+
+                deflected = 'deflected' in event and event['shot']['deflected']
+                one_on_one = 'one_on_one' in event and event['shot']['one_on_one']
+                aerial_won = 'aerial_won' in event and event['shot']['aerial_won']
+                saved_to_post = 'saved_to_post' in event and event['shot']['saved_to_post']
+                redirect = 'redirect' in event and event['shot']['redirect']
+                open_goal = 'open_goal' in event and event['shot']['open_goal']
+                follows_dribble = 'follows_dribble' in event and event['shot']['follows_dribble']
+                saved_off_target = 'saved_off_target' in event and event['shot']['saved_off_target']
+
+                event_16_metadata_row = {
+                    'event_16_id' : t_event_16_id, # int (event_16 FK)
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'shot_type_id' : shot_id, # int (shot_type FK)
+                    'outcome_id' : outcome_id, # int (outcome FK)
+                    'shot_technique_id' : technique_id, # int (shot_technique FK)
+                    'body_part_id' : bp_id, # int (body_part FK)
+                    'end_location_x' :  loc_x, # float
+                    'end_location_y' : loc_y, # float 
+                    'deflected' : deflected, # bool
+                    'one_on_one' : one_on_one, # bool
+                    'aerial_won' : aerial_won, # bool
+                    'saved_to_post' : saved_to_post, # bool
+                    'redirect' : redirect, # bool
+                    'open_goal' : open_goal, # bool
+                    'follows_dribble' : follows_dribble, # bool
+                    'saved_off_target' : saved_off_target, # bool
+                }
+                t_event_16_metadata_id = len(t_event_16_metadata)
+                check_unique_id(t_event_16_metadata, t_event_16_metadata_id) 
+                t_event_16_metadata[t_event_16_metadata_id] = event_16_metadata_row
 
             elif e_type == 30: # Populate event_30 table for pass event
 
@@ -541,6 +602,78 @@ if __name__ == "__main__":
                 check_unique_id(t_event_30, t_event_30_id) 
                 t_event_30[t_event_30_id] = event_30_row
 
+                pass_id = None
+                if 'type' in event['pass']:
+                    pass_id = event['pass']['type']['id']
+                    t_pass_type[pass_id] = {'pass_type_name' : event['pass']['type']['name']} # TABLE:pass_type
+                
+                outcome_id = None
+                if 'outcome' in event['pass']: 
+                    outcome_id = event['pass']['outcome']['id']
+                    t_outcome[outcome_id] = {'outcome_name' : event['pass']['outcome']['name']} # TABLE:outcome
+
+                technique_id = None
+                if 'technique' in event['pass']:
+                    technique_id = event['pass']['technique']['id']
+                    t_pass_technique[technique_id] = {'pass_technique_name' : event['pass']['technique']['name']} # TABLE:outcome
+
+                loc_x = None
+                loc_y = None
+                if 'end_location' in event['pass']:
+                    loc_x = event['pass']['end_location'][0]
+                    loc_y = event['pass']['end_location'][1]
+
+                bp_id = None
+                if 'body_part' in event['pass']:
+                    bp_id = event['pass']['body_part']['id']
+                    t_body_part[bp_id] = {'body_part_name' : event['pass']['body_part']['name']} # TABLE:body_part
+                
+                deflected = 'deflected' in event and event['pass']['deflected']
+                aerial_won = 'aerial_won' in event and event['pass']['aerial_won']
+                shot_assist = 'shot_assist' in event and event['pass']['shot_assist']
+                switch = 'switch' in event and event['pass']['switch']
+                cross = 'cross' in event and event['pass']['cross']
+                deflected = 'deflected' in event and event['pass']['deflected']
+                inswinging = 'inswinging' in event and event['pass']['inswinging']
+                through_ball = 'through_ball' in event and event['pass']['through_ball']
+                no_touch = 'no_touch' in event and event['pass']['no_touch']
+                outswinging = 'outswinging' in event and event['pass']['outswinging']
+                miscommunication = 'miscommunication' in event and event['pass']['miscommunication']
+                cut_back = 'cut_back' in event and event['pass']['cut_back']
+                goal_assist = 'goal_assist' in event and event['pass']['goal_assist']
+                straight = 'straight' in event and event['pass']['straight']
+
+                event_30_metadata_row = {
+                    'event_30_id' : t_event_30_id, # int (event_30 FK)
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                    'length' : event['pass']['length'], # float
+                    'angle' : event['pass']['angle'], # float
+                    'pass_type_id' : pass_id, # int (pass_type FK)
+                    'outcome_id' : outcome_id, # int (outcome FK)
+                    'pass_technique_id' : technique_id, # int (pass_technique FK)
+                    'body_part_id' : bp_id, # int (body_part FK)
+                    'end_location_x' :  loc_x, # float
+                    'end_location_y' : loc_y, # float
+                    'aerial_won' : aerial_won, # bool
+                    'shot_assist' : shot_assist, # bool
+                    'pass_switch' : switch, # bool
+                    'pass_cross' : cross, # bool
+                    'deflected' : deflected, # bool
+                    'inswinging' : inswinging, # bool
+                    'through_ball' : through_ball, # bool
+                    'no_touch' : no_touch, # bool
+                    'outswinging' : outswinging, # bool
+                    'miscommunication' : miscommunication, # bool
+                    'cut_back' : cut_back, # bool
+                    'goal_assist' : goal_assist, # bool
+                    'straight' : straight, # bool 
+                }
+                t_event_30_metadata_id = len(t_event_30_metadata)
+                check_unique_id(t_event_30_metadata, t_event_30_metadata_id) 
+                t_event_30_metadata[t_event_30_metadata_id] = event_30_metadata_row
+
             elif e_type == 39: # Populate event_39 for Dribbled Past event
                 event_14_id = None
                 if 'related_events' in event:
@@ -559,6 +692,16 @@ if __name__ == "__main__":
                 t_event_39_id = len(t_event_39)
                 check_unique_id(t_event_39, t_event_39_id) 
                 t_event_39[t_event_39_id] = event_39_row
+
+                event_39_metadata_row = {
+                    'event_39_id' : t_event_39_id, # int (event_39 FK)
+                    'location_x' : event['location'][0], # float
+                    'location_y' : event['location'][1], # float
+                    'duration' : event['duration'], # float
+                }
+                t_event_39_metadata_id = len(t_event_39_metadata)
+                check_unique_id(t_event_39_metadata, t_event_39_metadata_id) 
+                t_event_39_metadata[t_event_39_metadata_id] = event_39_metadata_row
 
             # Start making tables for the other event types
             elif e_type == 2: # Ball Recovery
@@ -829,13 +972,19 @@ if __name__ == "__main__":
                 t_event_22[t_event_22_id] = event_22_row
 
             elif e_type == 23: # Goal Keeper #@@
+                loc_x = None
+                loc_y = None
+                if 'location' in event:
+                    loc_x = event['location'][0]
+                    loc_y = event['location'][1]
+
                 event_23_row = {
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
                     'team_id' : event['team']['id'], # int (team FK)
-                    'location_x' : event['location'][0], # float
-                    'location_y' : event['location'][1], # float
+                    'location_x' : loc_x, # float
+                    'location_y' : loc_y, # float
                     'duration' : event['duration'], # float
                 }
                 t_event_23_id = len(t_event_23)
@@ -1123,6 +1272,10 @@ if __name__ == "__main__":
     print(dict_to_sql("body_part", "body_part_id", t_body_part))
     print(dict_to_sql("duel_type", "duel_type_id", t_duel_type))
     print(dict_to_sql("foul_type", "foul_type_id", t_foul_type))
+    print(dict_to_sql("shot_type", "shot_type_id", t_shot_type))
+    print(dict_to_sql("shot_technique", "shot_technique_id", t_shot_technique))
+    print(dict_to_sql("pass_type", "pass_type_id", t_pass_type))
+    print(dict_to_sql("pass_technique", "pass_technique_id", t_pass_technique))
 
     # # Main Events Data 
     # print(dict_to_sql("event_type", "event_type_id", t_event_type))
@@ -1133,6 +1286,12 @@ if __name__ == "__main__":
     # print(dict_to_sql("event_16", "event_16_id", t_event_16))
     # print(dict_to_sql("event_30", "event_30_id", t_event_30))
     # print(dict_to_sql("event_39", "event_39_id", t_event_39))
+
+    # Event Metadata Tables
+    print(dict_to_sql("event_14_metadata", "event_14_metadata_id", t_event_14_metadata))
+    print(dict_to_sql("event_16_metadata", "event_16_metadata_id", t_event_16_metadata))
+    print(dict_to_sql("event_30_metadata", "event_30_metadata_id", t_event_30_metadata))
+    print(dict_to_sql("event_39_metadata", "event_39_metadata_id", t_event_39_metadata))
 
     # Other Events Data
     print(dict_to_sql("event_02", "event_02_id", t_event_02))

@@ -121,11 +121,6 @@ CREATE TABLE play_pattern (
     play_pattern_name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE pass_type (
-    pass_type_id INTEGER PRIMARY KEY,
-    pass_type_name VARCHAR(50) NOT NULL
-);
-
 CREATE TABLE event (
     event_id INTEGER PRIMARY KEY,
     event_type_id INTEGER REFERENCES event_type(event_type_id),
@@ -227,6 +222,8 @@ CREATE INDEX q9_index ON event_14(complete bool_ops,season_id int4_ops,player_id
 CREATE INDEX q10_index ON event_39(season_id int4_ops,player_id int4_ops);
 */
 
+/* Various types */
+
 CREATE TABLE outcome (
     outcome_id INTEGER PRIMARY KEY,
     outcome_name VARCHAR(50) NOT NULL
@@ -246,6 +243,99 @@ CREATE TABLE foul_type (
     foul_type_id INTEGER PRIMARY KEY,
     foul_type_name VARCHAR(50) NOT NULL
 );
+
+CREATE TABLE shot_type (
+    shot_type_id INTEGER PRIMARY KEY,
+    shot_type_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE pass_type (
+    pass_type_id INTEGER PRIMARY KEY,
+    pass_type_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE shot_technique (
+    shot_technique_id INTEGER PRIMARY KEY,
+    shot_technique_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE pass_technique (
+    pass_technique_id INTEGER PRIMARY KEY,
+    pass_technique_name VARCHAR(50) NOT NULL
+);
+
+-- Event 14 Metadata
+CREATE TABLE event_14_metadata (
+    event_14_metadata_id SERIAL PRIMARY KEY,
+    event_14_id INTEGER REFERENCES event_14(event_14_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 16 Metadata
+CREATE TABLE event_16_metadata (
+    event_16_metadata_id SERIAL PRIMARY KEY,
+    event_16_id INTEGER REFERENCES event_16(event_16_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    shot_type_id INTEGER REFERENCES shot_type(shot_type_id),
+    outcome_id INTEGER REFERENCES outcome(outcome_id),
+    shot_technique_id INTEGER REFERENCES shot_technique(shot_technique_id),
+    body_part_id INTEGER REFERENCES body_part(body_part_id),
+    end_location_x FLOAT,
+    end_location_y FLOAT,
+    deflected BOOLEAN,
+    one_on_one BOOLEAN,
+    aerial_won BOOLEAN,
+    saved_to_post BOOLEAN,
+    redirect BOOLEAN,
+    open_goal BOOLEAN,
+    follows_dribble BOOLEAN,
+    saved_off_target BOOLEAN
+);
+
+-- Event 30 Metadata
+CREATE TABLE event_30_metadata (
+    event_30_metadata_id SERIAL PRIMARY KEY,
+    event_30_id INTEGER REFERENCES event_30(event_30_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    length FLOAT,
+    angle FLOAT,
+    pass_type_id INTEGER REFERENCES pass_type(pass_type_id),
+    outcome_id INTEGER REFERENCES outcome(outcome_id),
+    pass_technique_id INTEGER REFERENCES pass_technique(pass_technique_id),
+    body_part_id INTEGER REFERENCES body_part(body_part_id),
+    end_location_x FLOAT,
+    end_location_y FLOAT,
+    aerial_won BOOLEAN,
+    shot_assist BOOLEAN,
+    pass_switch BOOLEAN,
+    pass_cross BOOLEAN,
+    deflected BOOLEAN,
+    inswinging BOOLEAN,
+    through_ball BOOLEAN,
+    no_touch BOOLEAN,
+    outswinging BOOLEAN,
+    miscommunication BOOLEAN,
+    cut_back BOOLEAN,
+    goal_assist BOOLEAN,
+    straight BOOLEAN
+);
+
+-- Event 39 Metadata
+CREATE TABLE event_39_metadata (
+    event_39_metadata_id SERIAL PRIMARY KEY,
+    event_39_id INTEGER REFERENCES event_39(event_39_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+/* Additional Events */
 
 -- Event 02 : Ball Recovery
 CREATE TABLE event_02 (
@@ -623,4 +713,3 @@ CREATE TABLE event_43 (
     end_location_y FLOAT,
     duration FLOAT
 );
-
