@@ -226,3 +226,401 @@ CREATE INDEX q8_index ON event_30(through_ball bool_ops,season_id int4_ops,team_
 CREATE INDEX q9_index ON event_14(complete bool_ops,season_id int4_ops,player_id int4_ops);
 CREATE INDEX q10_index ON event_39(season_id int4_ops,player_id int4_ops);
 */
+
+CREATE TABLE outcome (
+    outcome_id INTEGER PRIMARY KEY,
+    outcome_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE body_part (
+    body_part_id INTEGER PRIMARY KEY,
+    body_part_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE duel_type (
+    duel_type_id INTEGER PRIMARY KEY,
+    duel_type_name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE foul_type (
+    foul_type_id INTEGER PRIMARY KEY,
+    foul_type_name VARCHAR(50) NOT NULL
+);
+
+-- Event 02 : Ball Recovery
+CREATE TABLE event_02 (
+    event_02_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 03 : Dispossessed
+CREATE TABLE event_03 (
+    event_03_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 04 : Duel
+CREATE TABLE event_04 (
+    event_04_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    duel_type_id INTEGER REFERENCES duel_type(duel_type_id),
+    outcome_id INTEGER REFERENCES outcome(outcome_id)
+);
+
+-- Event 05 : Camera On
+CREATE TABLE event_05 (
+    event_05_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id)
+);
+
+-- Event 06 : Block
+CREATE TABLE event_06 (
+    event_06_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    deflection BOOLEAN,
+    offensive BOOLEAN,
+    save_block BOOLEAN
+);
+
+-- Event 08 : Offside
+CREATE TABLE event_08 (
+    event_08_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 09 : Clearance
+CREATE TABLE event_09 (
+    event_09_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    aerial_won BOOLEAN,
+    body_part_id INTEGER REFERENCES body_part(body_part_id)
+);
+
+-- Event 10 : Interception
+CREATE TABLE event_10 (
+    event_10_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    outcome_id INTEGER REFERENCES outcome(outcome_id)
+);
+
+-- Event 17 : Pressure
+CREATE TABLE event_17 (
+    event_17_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    counterpress BOOLEAN
+);
+
+-- Event 18 : Half Start
+CREATE TABLE event_18 (
+    event_18_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    duration FLOAT,
+    late_video_start BOOLEAN
+);
+
+-- Event 19 : Substitution
+CREATE TABLE event_19 (
+    event_19_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    duration FLOAT,
+    outcome_id INTEGER,
+    replacement_id INTEGER REFERENCES player(player_id)
+);
+
+-- Event 20 : Own Goal Against
+CREATE TABLE event_20 (
+    event_20_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 21 : Foul Won
+CREATE TABLE event_21 (
+    event_21_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    penalty BOOLEAN,
+    defensive BOOLEAN,
+    advantage BOOLEAN
+);
+
+-- Event 22 : Foul Committed
+CREATE TABLE event_22 (
+    event_22_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    penalty BOOLEAN,
+    advantage BOOLEAN,
+    offensive BOOLEAN,
+    penalty_card_id INTEGER REFERENCES penalty_card(card_type),
+    foul_id INTEGER REFERENCES foul_type(foul_type_id)
+);
+
+-- Event 23 : Goal Keeper #@@
+CREATE TABLE event_23 (
+    event_23_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 24 : Bad Behaviour
+CREATE TABLE event_24 (
+    event_24_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    duration FLOAT,
+    penalty_card_id INTEGER REFERENCES penalty_card(card_type)
+);
+
+-- Event 25 : Own Goal For
+CREATE TABLE event_25 (
+    event_25_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 26 : Player On
+CREATE TABLE event_26 (
+    event_26_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 27 : Player Off
+CREATE TABLE event_27 (
+    event_27_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 28 : Shield
+CREATE TABLE event_28 (
+    event_28_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 29 : Camera off
+CREATE TABLE event_29 (
+    event_29_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 33 : 50/50
+CREATE TABLE event_33 (
+    event_33_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    outcome_id INTEGER REFERENCES outcome(outcome_id)
+);
+
+-- Event 34 : Half End
+CREATE TABLE event_34 (
+    event_34_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    team_id INTEGER REFERENCES team(team_id),
+    duration FLOAT
+);
+
+-- Event 35 : Starting XI #@@
+CREATE TABLE event_35 (
+    event_35_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    team_id INTEGER REFERENCES team(team_id),
+    duration FLOAT
+);
+
+-- Event 36 : Tactical Shift #@@
+CREATE TABLE event_36 (
+    event_36_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    team_id INTEGER REFERENCES team(team_id),
+    duration FLOAT
+);
+
+-- Event 37 : Error
+CREATE TABLE event_37 (
+    event_37_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 38 : Miscontrol
+CREATE TABLE event_38 (
+    event_38_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    aerial_won BOOLEAN
+);
+
+-- Event 40 : Injury Stoppage
+CREATE TABLE event_40 (
+    event_40_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT,
+    in_chain BOOLEAN
+);
+
+-- Event 41 : Referee Ball-Drop
+CREATE TABLE event_41 (
+    event_41_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    duration FLOAT
+);
+
+-- Event 42 : Ball Receipt*
+CREATE TABLE event_42 (
+    event_42_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    outcome_id INTEGER REFERENCES outcome(outcome_id)
+);
+
+-- Event 43 : Carry
+CREATE TABLE event_43 (
+    event_43_id INTEGER PRIMARY KEY,
+    event_id INTEGER REFERENCES event(event_id),
+    match_id INTEGER REFERENCES game_match(match_id),
+    player_id INTEGER REFERENCES player(player_id),
+    team_id INTEGER REFERENCES team(team_id),
+    location_x FLOAT,
+    location_y FLOAT,
+    end_location_x FLOAT,
+    end_location_y FLOAT,
+    duration FLOAT
+);
+

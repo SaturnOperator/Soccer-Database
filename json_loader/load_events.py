@@ -13,64 +13,6 @@ def get_json_data(file_name):
 
     return data
 
-class PostgresDatabase:
-    def __init__(self, user='', password='', host='localhost', port='5432', database='project_database'):
-        self.user = user
-        self.password = password
-        self.host = host
-        self.port = port
-        self.database = database
-        self.connection = None
-
-    def connect_to_database(self):
-        # Database credentials and address
-        url = f"host={self.host} port={self.port} dbname={self.database}"
-        
-        # If username/password needed add them to the url
-        if(self.user != ""):
-            url += f" user={self.user}"
-        if(self.password != ""):
-            url += f" password={self.password}"
-
-        try:
-            self.connection = psycopg.connect(url)
-            return True
-        except Exception as error:
-            print(error)
-            return False
-
-    def insert_data(self, table_name, data):
-        try:
-            if not self.connection:
-                print("No active connection to the database.")
-                return
-
-            cursor = self.connection.cursor()
-
-            # Construct the insert query dynamically based on the number of columns
-            columns = ', '.join(data.keys())
-            placeholders = ', '.join(['%s'] * len(data))
-            insert_query = f"INSERT INTO {table_name} ({columns}) VALUES ({placeholders})"
-
-            # Execute the insert query
-            cursor.execute(insert_query, list(data.values()))
-
-            # Commit the transaction
-            self.connection.commit()
-            # print("Record inserted successfully")
-
-        except psycopg.Error as error:
-            print("Error while inserting data into PostgreSQL:", error)
-
-    def close_connection(self):
-        try:
-            # Close database connection
-            if self.connection:
-                self.connection.close()
-                print("PostgreSQL connection is closed")
-        except Exception as e:
-            print("Error while closing connection:", e)
-
 def write_json_to_db(filePath, db, tableName):
     # Open and load the JSON file
     with open(filePath, 'r') as file:
@@ -436,6 +378,9 @@ if __name__ == "__main__":
     t_play_pattern = {}
     t_related_event = {}
     t_body_part = {}
+    t_outcome = {}
+    t_duel_type = {}
+    t_foul_type = {}
 
     # Dribble event tables
     t_event_14 = {}
@@ -489,11 +434,6 @@ if __name__ == "__main__":
     t_event_41 = {} # Referee Ball-Drop
     t_event_42 = {} # Ball Receipt*
     t_event_43 = {} # Carry
-
-    # Other tables
-    t_outcome = {}
-    t_duel_type = {}
-    t_foul_type = {}
 
     # Convert the event UUID IDs into ints, this should make look up faster and make the ID have smaller footprint 
     # This also needs to be done first so that UUID's can be converted for an event's related_events
@@ -626,7 +566,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -640,7 +580,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -664,12 +604,12 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
                     'duel_type_id' : duel_id, # int (duel_type FK)
-                    'outocme_id' : outcome_id, # int, can be null (outcome FK)
+                    'outcome_id' : outcome_id, # int, can be null (outcome FK)
                 }
                 t_event_04_id = len(t_event_04)
                 check_unique_id(t_event_04, t_event_04_id) 
@@ -680,7 +620,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                 }
                 t_event_05_id = len(t_event_05)
                 check_unique_id(t_event_05, t_event_05_id) 
@@ -703,7 +643,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -720,7 +660,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -737,7 +677,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -756,7 +696,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -771,7 +711,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -800,7 +740,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'duration' : event['duration'], # float
                     'outcome_id' : outcome_id, # int (outcome FK)
                     'replacement_id' : event['substitution']['replacement']['id'], # int, (player FK)
@@ -814,7 +754,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -840,7 +780,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -874,7 +814,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -893,7 +833,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -907,7 +847,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'duration' : event['duration'], # float
                     'penalty_card_id' : event['bad_behaviour']['card']['id']
                 }
@@ -925,7 +865,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : player_id, # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -939,7 +879,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -953,7 +893,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -967,7 +907,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -981,7 +921,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -1000,11 +940,11 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float,
-                    'outcome' : outcome_id, # int (outcome FK)
+                    'outcome_id' : outcome_id, # int (outcome FK)
                 }
                 t_event_33_id = len(t_event_33)
                 check_unique_id(t_event_33, t_event_33_id) 
@@ -1014,7 +954,7 @@ if __name__ == "__main__":
                 event_34_row = {
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'duration' : event['duration'], # float
                 }
                 t_event_34_id = len(t_event_34)
@@ -1025,7 +965,7 @@ if __name__ == "__main__":
                 event_35_row = {
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'duration' : event['duration'], # float
                 }
                 t_event_35_id = len(t_event_35)
@@ -1036,7 +976,7 @@ if __name__ == "__main__":
                 event_36_row = {
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'duration' : event['duration'], # float
                 }
                 t_event_36_id = len(t_event_36)
@@ -1048,7 +988,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -1066,7 +1006,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -1091,7 +1031,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : loc_x, # float
                     'location_y' : loc_y, # float
                     'duration' : event['duration'], # float
@@ -1105,7 +1045,7 @@ if __name__ == "__main__":
                 event_41_row = {
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'duration' : event['duration'], # float
@@ -1125,7 +1065,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'outcome_id' : outcome_id, # int (outcome FK)
@@ -1139,7 +1079,7 @@ if __name__ == "__main__":
                     'event_id' : e_id, # int (event FK)
                     'match_id' : m_id, # int (game_match FK)
                     'player_id' : event['player']['id'], # int (player FK)
-                    'team_id' : event['team']['id'], # int
+                    'team_id' : event['team']['id'], # int (team FK)
                     'location_x' : event['location'][0], # float
                     'location_y' : event['location'][1], # float
                     'end_location_x' : event['carry']['end_location'][0], # float
@@ -1160,35 +1100,72 @@ if __name__ == "__main__":
 
     # Convert normalized data to SQL writes
 
-    # Player, Team and Match Data
-    print(dict_to_sql("player_position", "position_id", t_player_position))
-    print(dict_to_sql("penalty_card", "card_type", t_penalty_card))
-    print(dict_to_sql("country", "country_id", t_country))
-    print(dict_to_sql("competition", "competition_id", t_competition))
-    print(dict_to_sql("season", "season_id", t_season))
-    print(dict_to_sql("team", "team_id", t_team))
-    print(dict_to_sql("player", "player_id", t_player))
-    print(dict_to_sql("manager", "manager_id", t_manager))
-    print(dict_to_sql("stadium", "stadium_id", t_stadium))
-    print(dict_to_sql("competition_stage", "competition_stage_id", t_competition_stage))
-    print(dict_to_sql("game_match", "match_id", t_game_match))
-    print(dict_to_sql("lineup_team", "lineup_team_id", t_lineup_team))
-    print(dict_to_sql("lineup_manager", "lineup_manager_id", t_lineup_manager))
-    print(dict_to_sql("lineup_player", "lineup_player_id", t_lineup_player))
-    print(dict_to_sql("lineup_player_position", "lineup_player_position_id", t_lineup_player_position))
-    print(dict_to_sql("lineup_player_card", "lineup_player_card_id", t_lineup_player_card))
+    # # Player, Team and Match Data
+    # print(dict_to_sql("player_position", "position_id", t_player_position))
+    # print(dict_to_sql("penalty_card", "card_type", t_penalty_card))
+    # print(dict_to_sql("country", "country_id", t_country))
+    # print(dict_to_sql("competition", "competition_id", t_competition))
+    # print(dict_to_sql("season", "season_id", t_season))
+    # print(dict_to_sql("team", "team_id", t_team))
+    # print(dict_to_sql("player", "player_id", t_player))
+    # print(dict_to_sql("manager", "manager_id", t_manager))
+    # print(dict_to_sql("stadium", "stadium_id", t_stadium))
+    # print(dict_to_sql("competition_stage", "competition_stage_id", t_competition_stage))
+    # print(dict_to_sql("game_match", "match_id", t_game_match))
+    # print(dict_to_sql("lineup_team", "lineup_team_id", t_lineup_team))
+    # print(dict_to_sql("lineup_manager", "lineup_manager_id", t_lineup_manager))
+    # print(dict_to_sql("lineup_player", "lineup_player_id", t_lineup_player))
+    # print(dict_to_sql("lineup_player_position", "lineup_player_position_id", t_lineup_player_position))
+    # print(dict_to_sql("lineup_player_card", "lineup_player_card_id", t_lineup_player_card))
 
-    # Event Data 
-    print(dict_to_sql("event_type", "event_type_id", t_event_type))
-    print(dict_to_sql("play_pattern", "play_pattern_id", t_play_pattern))
-    print(dict_to_sql("pass_type", "pass_type_id", t_pass_type))
-    print(dict_to_sql("event", "event_id", t_event))
-    print(dict_to_sql("event_14", "event_14_id", t_event_14))
-    print(dict_to_sql("event_16", "event_16_id", t_event_16))
-    print(dict_to_sql("event_30", "event_30_id", t_event_30))
-    print(dict_to_sql("event_39", "event_39_id", t_event_39))
+    # Top level
+    print(dict_to_sql("outcome", "outcome_id", t_outcome))
+    print(dict_to_sql("body_part", "body_part_id", t_body_part))
+    print(dict_to_sql("duel_type", "duel_type_id", t_duel_type))
+    print(dict_to_sql("foul_type", "foul_type_id", t_foul_type))
 
+    # # Main Events Data 
+    # print(dict_to_sql("event_type", "event_type_id", t_event_type))
+    # print(dict_to_sql("play_pattern", "play_pattern_id", t_play_pattern))
+    # print(dict_to_sql("pass_type", "pass_type_id", t_pass_type))
+    # print(dict_to_sql("event", "event_id", t_event))
+    # print(dict_to_sql("event_14", "event_14_id", t_event_14))
+    # print(dict_to_sql("event_16", "event_16_id", t_event_16))
+    # print(dict_to_sql("event_30", "event_30_id", t_event_30))
+    # print(dict_to_sql("event_39", "event_39_id", t_event_39))
 
+    # Other Events Data
+    print(dict_to_sql("event_02", "event_02_id", t_event_02))
+    print(dict_to_sql("event_03", "event_03_id", t_event_03))
+    print(dict_to_sql("event_04", "event_04_id", t_event_04))
+    print(dict_to_sql("event_05", "event_05_id", t_event_05))
+    print(dict_to_sql("event_06", "event_06_id", t_event_06))
+    print(dict_to_sql("event_08", "event_08_id", t_event_08))
+    print(dict_to_sql("event_09", "event_09_id", t_event_09))
+    print(dict_to_sql("event_10", "event_10_id", t_event_10))
+    print(dict_to_sql("event_17", "event_17_id", t_event_17))
+    print(dict_to_sql("event_18", "event_18_id", t_event_18))
+    print(dict_to_sql("event_19", "event_19_id", t_event_19))
+    print(dict_to_sql("event_20", "event_20_id", t_event_20))
+    print(dict_to_sql("event_21", "event_21_id", t_event_21))
+    print(dict_to_sql("event_22", "event_22_id", t_event_22))
+    print(dict_to_sql("event_23", "event_23_id", t_event_23))
+    print(dict_to_sql("event_24", "event_24_id", t_event_24))
+    print(dict_to_sql("event_25", "event_25_id", t_event_25))
+    print(dict_to_sql("event_26", "event_26_id", t_event_26))
+    print(dict_to_sql("event_27", "event_27_id", t_event_27))
+    print(dict_to_sql("event_28", "event_28_id", t_event_28))
+    print(dict_to_sql("event_29", "event_29_id", t_event_29))
+    print(dict_to_sql("event_33", "event_33_id", t_event_33))
+    print(dict_to_sql("event_34", "event_34_id", t_event_34))
+    print(dict_to_sql("event_35", "event_35_id", t_event_35))
+    print(dict_to_sql("event_36", "event_36_id", t_event_36))
+    print(dict_to_sql("event_37", "event_37_id", t_event_37))
+    print(dict_to_sql("event_38", "event_38_id", t_event_38))
+    print(dict_to_sql("event_40", "event_40_id", t_event_40))
+    print(dict_to_sql("event_41", "event_41_id", t_event_41))
+    print(dict_to_sql("event_42", "event_42_id", t_event_42))
+    print(dict_to_sql("event_43", "event_43_id", t_event_43))
 
 
 
