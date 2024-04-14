@@ -163,10 +163,10 @@ if __name__ == "__main__":
     lineups = get_lineups_from_match_ids(match_ids) # Get lineup data
 
     card_types = {
-        "Yellow Card" : 0,
-        "Second Yellow" : 1,
-        "Red Card" : 2,
-        "Other" : 3, # Shouldn't be possible but here in case
+        "Yellow Card" : 7,
+        "Second Yellow" : 6,
+        "Red Card" : 5,
+        "Other" : 0, # Shouldn't be possible but here in case
     }
 
     # Start gathering information for top level tables
@@ -1245,23 +1245,23 @@ if __name__ == "__main__":
 
     # Convert normalized data to SQL writes
 
-    # # Player, Team and Match Data
-    # print(dict_to_sql("player_position", "position_id", t_player_position))
-    # print(dict_to_sql("penalty_card", "card_type", t_penalty_card))
-    # print(dict_to_sql("country", "country_id", t_country))
-    # print(dict_to_sql("competition", "competition_id", t_competition))
-    # print(dict_to_sql("season", "season_id", t_season))
-    # print(dict_to_sql("team", "team_id", t_team))
-    # print(dict_to_sql("player", "player_id", t_player))
-    # print(dict_to_sql("manager", "manager_id", t_manager))
-    # print(dict_to_sql("stadium", "stadium_id", t_stadium))
-    # print(dict_to_sql("competition_stage", "competition_stage_id", t_competition_stage))
-    # print(dict_to_sql("game_match", "match_id", t_game_match))
-    # print(dict_to_sql("lineup_team", "lineup_team_id", t_lineup_team))
-    # print(dict_to_sql("lineup_manager", "lineup_manager_id", t_lineup_manager))
-    # print(dict_to_sql("lineup_player", "lineup_player_id", t_lineup_player))
-    # print(dict_to_sql("lineup_player_position", "lineup_player_position_id", t_lineup_player_position))
-    # print(dict_to_sql("lineup_player_card", "lineup_player_card_id", t_lineup_player_card))
+    # Player, Team and Match Data
+    print(dict_to_sql("player_position", "position_id", t_player_position))
+    print(dict_to_sql("penalty_card", "card_type", t_penalty_card))
+    print(dict_to_sql("country", "country_id", t_country))
+    print(dict_to_sql("competition", "competition_id", t_competition))
+    print(dict_to_sql("season", "season_id", t_season))
+    print(dict_to_sql("team", "team_id", t_team))
+    print(dict_to_sql("player", "player_id", t_player))
+    print(dict_to_sql("manager", "manager_id", t_manager))
+    print(dict_to_sql("stadium", "stadium_id", t_stadium))
+    print(dict_to_sql("competition_stage", "competition_stage_id", t_competition_stage))
+    print(dict_to_sql("game_match", "match_id", t_game_match))
+    print(dict_to_sql("lineup_team", "lineup_team_id", t_lineup_team))
+    print(dict_to_sql("lineup_manager", "lineup_manager_id", t_lineup_manager))
+    print(dict_to_sql("lineup_player", "lineup_player_id", t_lineup_player))
+    print(dict_to_sql("lineup_player_position", "lineup_player_position_id", t_lineup_player_position))
+    print(dict_to_sql("lineup_player_card", "lineup_player_card_id", t_lineup_player_card))
 
     # Top level
     print(dict_to_sql("outcome", "outcome_id", t_outcome))
@@ -1273,15 +1273,14 @@ if __name__ == "__main__":
     print(dict_to_sql("pass_type", "pass_type_id", t_pass_type))
     print(dict_to_sql("pass_technique", "pass_technique_id", t_pass_technique))
 
-    # # Main Events Data 
-    # print(dict_to_sql("event_type", "event_type_id", t_event_type))
-    # print(dict_to_sql("play_pattern", "play_pattern_id", t_play_pattern))
-    # print(dict_to_sql("pass_type", "pass_type_id", t_pass_type))
-    # print(dict_to_sql("event", "event_id", t_event))
-    # print(dict_to_sql("event_14", "event_14_id", t_event_14))
-    # print(dict_to_sql("event_16", "event_16_id", t_event_16))
-    # print(dict_to_sql("event_30", "event_30_id", t_event_30))
-    # print(dict_to_sql("event_39", "event_39_id", t_event_39))
+    # Main Events Data 
+    print(dict_to_sql("event_type", "event_type_id", t_event_type))
+    print(dict_to_sql("play_pattern", "play_pattern_id", t_play_pattern))
+    print(dict_to_sql("event", "event_id", t_event))
+    print(dict_to_sql("event_14", "event_14_id", t_event_14))
+    print(dict_to_sql("event_16", "event_16_id", t_event_16))
+    print(dict_to_sql("event_30", "event_30_id", t_event_30))
+    print(dict_to_sql("event_39", "event_39_id", t_event_39))
 
     # Event Metadata Tables
     print(dict_to_sql("event_14_metadata", "event_14_metadata_id", t_event_14_metadata))
